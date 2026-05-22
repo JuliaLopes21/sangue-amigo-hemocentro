@@ -8,8 +8,42 @@ export const Route = createFileRoute("/campanhas")({
 });
 
 const cards = [
-  { tag: "Urgente", tagColor: "bg-red-50 text-primary", title: "Campanha: Salve vidas", date: "05 a 29 de Março", loc: "Santa Casa de Misericórdia", addr: "Rua Dr. Cesário Mota Júnior, 112, São Paulo", types: ["O-","A+","AB-"] },
-  { tag: "Sazonal", tagColor: "bg-green-50 text-secondary", title: "Campanha: Junho Vermelho", date: "01 a 30 de Junho", loc: "Hemocentro Regional", addr: "Av. Enéas Carvalho de Aguiar, 155, São Paulo", types: ["Todos os Tipos"] },
+  {
+    tag: "Urgente",
+    tagColor: "bg-red-50 text-primary",
+    title: "Campanha OAB Franca pela Vida",
+    date: "18 de Abril a 30 de Maio de 2026",
+    loc: "Núcleo de Hemoterapia de Franca",
+    addr: "Rua Cel. Flauzino Barbosa Sandoval, 100 — Franca, SP",
+    types: ["O-", "O+", "A-", "B-", "AB-"],
+  },
+  {
+    tag: "Sazonal",
+    tagColor: "bg-green-50 text-secondary",
+    title: "Junho Vermelho — Santa Casa de Franca",
+    date: "01 a 30 de Junho de 2026",
+    loc: "Santa Casa de Misericórdia de Franca",
+    addr: "Rua Cel. Flauzino Barbosa Sandoval, 121 — Franca, SP",
+    types: ["Todos os Tipos"],
+  },
+  {
+    tag: "Hospitalar",
+    tagColor: "bg-red-50 text-primary",
+    title: "Doe pelo Hospital do Coração de Franca",
+    date: "Permanente — agendamento contínuo",
+    loc: "Hospital do Coração de Franca",
+    addr: "Av. Dr. Hélio Palermo, 2900 — Franca, SP",
+    types: ["O-", "AB-", "B-"],
+  },
+  {
+    tag: "Solidária",
+    tagColor: "bg-green-50 text-secondary",
+    title: "Franca + Vida — Hospital do Câncer",
+    date: "10 de Maio a 30 de Julho de 2026",
+    loc: "Hospital do Câncer de Franca",
+    addr: "Av. Dr. Hélio Palermo, 3265 — Franca, SP",
+    types: ["A+", "O+", "B+"],
+  },
 ];
 
 function CampanhasPage() {
@@ -18,8 +52,8 @@ function CampanhasPage() {
       <main className="pt-8 pb-12">
         <section className="bg-primary py-xl px-md text-white">
           <div className="max-w-7xl mx-auto">
-            <h1 className="font-display-lg text-display-lg text-white mb-2">Campanhas Ativas</h1>
-            <p className="text-white/80">Participe e ajude a salvar vidas hoje mesmo.</p>
+            <h1 className="font-display-lg text-display-lg text-white mb-2">Campanhas Ativas em Franca</h1>
+            <p className="text-white/80">Participe das campanhas locais e ajude a salvar vidas em Franca, SP.</p>
           </div>
         </section>
 
@@ -30,7 +64,7 @@ function CampanhasPage() {
                 <Icon name="location_on" className="text-[16px]" /> Cidade
               </label>
               <select className="w-full h-12 bg-surface-container-low border border-outline-variant rounded-xl px-4 outline-none focus:ring-2 focus:ring-primary">
-                <option>São Paulo, SP</option><option>Rio de Janeiro, RJ</option><option>Curitiba, PR</option>
+                <option>Franca, SP</option><option>Ribeirão Preto, SP</option><option>Batatais, SP</option>
               </select>
             </div>
             <div className="flex-1 w-full space-y-2">
