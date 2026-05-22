@@ -68,9 +68,8 @@ function Index() {
               </div>
               <div className="space-y-6">
                 {[
-                  ["Hemocentro Regional", "10 de Janeiro de 2026 • 450ml"],
-                  ["Hospital das Clínicas", "10 de Março de 2026 • 450ml"],
-                  ["Posto de Coleta Móvel", "10 de Maio de 2026 • 450ml"],
+                  ["Hemocentro de Franca", "22 de Janeiro de 2026 • 450ml"],
+                  ["Hospital do Coração — Franca", "28 de Abril de 2026 • 450ml"],
                 ].map(([title, sub]) => (
                   <div key={title} className="flex gap-4">
                     <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center shrink-0">
