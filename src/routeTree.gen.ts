@@ -9,12 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PontosRouteImport } from './routes/pontos'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HistoricoRouteImport } from './routes/historico'
+import { Route as HemocentrosRouteImport } from './routes/hemocentros'
+import { Route as CampanhasRouteImport } from './routes/campanhas'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PontosRoute = PontosRouteImport.update({
+  id: '/pontos',
+  path: '/pontos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -23,6 +37,16 @@ const LoginRoute = LoginRouteImport.update({
 const HistoricoRoute = HistoricoRouteImport.update({
   id: '/historico',
   path: '/historico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HemocentrosRoute = HemocentrosRouteImport.update({
+  id: '/hemocentros',
+  path: '/hemocentros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampanhasRoute = CampanhasRouteImport.update({
+  id: '/campanhas',
+  path: '/campanhas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CadastroRoute = CadastroRouteImport.update({
@@ -45,42 +69,100 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/cadastro': typeof CadastroRoute
+  '/campanhas': typeof CampanhasRoute
+  '/hemocentros': typeof HemocentrosRoute
   '/historico': typeof HistoricoRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
+  '/pontos': typeof PontosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/cadastro': typeof CadastroRoute
+  '/campanhas': typeof CampanhasRoute
+  '/hemocentros': typeof HemocentrosRoute
   '/historico': typeof HistoricoRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
+  '/pontos': typeof PontosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/cadastro': typeof CadastroRoute
+  '/campanhas': typeof CampanhasRoute
+  '/hemocentros': typeof HemocentrosRoute
   '/historico': typeof HistoricoRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
+  '/pontos': typeof PontosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agenda' | '/cadastro' | '/historico' | '/login'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/campanhas'
+    | '/hemocentros'
+    | '/historico'
+    | '/login'
+    | '/perfil'
+    | '/pontos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/cadastro' | '/historico' | '/login'
-  id: '__root__' | '/' | '/agenda' | '/cadastro' | '/historico' | '/login'
+  to:
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/campanhas'
+    | '/hemocentros'
+    | '/historico'
+    | '/login'
+    | '/perfil'
+    | '/pontos'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/campanhas'
+    | '/hemocentros'
+    | '/historico'
+    | '/login'
+    | '/perfil'
+    | '/pontos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
   CadastroRoute: typeof CadastroRoute
+  CampanhasRoute: typeof CampanhasRoute
+  HemocentrosRoute: typeof HemocentrosRoute
   HistoricoRoute: typeof HistoricoRoute
   LoginRoute: typeof LoginRoute
+  PerfilRoute: typeof PerfilRoute
+  PontosRoute: typeof PontosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pontos': {
+      id: '/pontos'
+      path: '/pontos'
+      fullPath: '/pontos'
+      preLoaderRoute: typeof PontosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -93,6 +175,20 @@ declare module '@tanstack/react-router' {
       path: '/historico'
       fullPath: '/historico'
       preLoaderRoute: typeof HistoricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hemocentros': {
+      id: '/hemocentros'
+      path: '/hemocentros'
+      fullPath: '/hemocentros'
+      preLoaderRoute: typeof HemocentrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campanhas': {
+      id: '/campanhas'
+      path: '/campanhas'
+      fullPath: '/campanhas'
+      preLoaderRoute: typeof CampanhasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cadastro': {
@@ -123,8 +219,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
   CadastroRoute: CadastroRoute,
+  CampanhasRoute: CampanhasRoute,
+  HemocentrosRoute: HemocentrosRoute,
   HistoricoRoute: HistoricoRoute,
   LoginRoute: LoginRoute,
+  PerfilRoute: PerfilRoute,
+  PontosRoute: PontosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
