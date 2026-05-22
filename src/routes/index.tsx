@@ -21,7 +21,7 @@ function Index() {
             <h1 className="font-headline-md text-4xl md:text-6xl text-on-primary-container mb-6 leading-tight">
               Obrigado, suas doações já salvaram 12 vidas.
             </h1>
-            <p className="text-white/90 mb-10 text-lg md:text-xl max-w-xl">
+            <p className="text-white/90 mb-10 text-lg md:text-xl">
               Sua constância faz a diferença para quem mais precisa. Continue espalhando vida através da sua doação.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -142,11 +142,14 @@ function Index() {
               <div className="p-5">
                 <h3 className="font-title-sm text-on-surface">Hemocentros próximos</h3>
               </div>
-              <div className="relative flex-1 bg-slate-100 min-h-[200px]">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-slate-100 to-amber-50" />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <Icon name="location_on" fill className="text-primary text-5xl drop-shadow-md" />
-                </div>
+              <div className="relative flex-1 bg-slate-100 min-h-[220px]">
+                <iframe
+                  title="Mapa de hemocentros próximos"
+                  className="absolute inset-0 w-full h-full border-0"
+                  loading="lazy"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-46.6588%2C-23.5615%2C-46.6288%2C-23.5415&layer=mapnik&marker=-23.5515%2C-46.6438"
+                />
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white/40 to-transparent" />
                 <Link to="/hemocentros" className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-slate-100 hover:bg-slate-50 transition-all">
                   <Icon name="map" className="text-primary text-sm" />
                   <span className="font-label-caps text-on-surface">Abrir Mapa</span>
