@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
+import aviaoImg from "@/assets/pontos-aviao.png";
+import viagemImg from "@/assets/reward-viagem.png";
+import farmaciaImg from "@/assets/reward-farmacia.png";
+import ipvaImg from "@/assets/reward-ipva.png";
+import iptuImg from "@/assets/reward-iptu.png";
 
 export const Route = createFileRoute("/pontos")({
   head: () => ({ meta: [{ title: "Pontos — SangueAmigo" }, { name: "description", content: "Pontos e recompensas pelas suas doações." }] }),
@@ -8,10 +13,10 @@ export const Route = createFileRoute("/pontos")({
 });
 
 const rewards = [
-  { title: "Desconto em passagens", desc: "Ganhe até 20% de desconto em trechos nacionais com a LATAM.", pts: 500, icon: "flight" },
-  { title: "Desconto Farmácia", desc: "Até 20% de desconto em qualquer Droga Raia ou Drogasil.", pts: 300, icon: "local_pharmacy" },
-  { title: "Isenção taxa IPVA", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1000, icon: "directions_car" },
-  { title: "Isenção Taxa IPTU", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1500, icon: "home" },
+  { title: "Desconto em passagens", desc: "Ganhe até 20% de desconto em trechos nacionais com a LATAM.", pts: 500, image: viagemImg },
+  { title: "Desconto Farmácia", desc: "Até 20% de desconto em qualquer Droga Raia ou Drogasil.", pts: 300, image: farmaciaImg },
+  { title: "Isenção taxa IPVA", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1000, image: ipvaImg },
+  { title: "Isenção Taxa IPTU", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1500, image: iptuImg },
 ];
 
 function PontosPage() {
@@ -35,8 +40,8 @@ function PontosPage() {
               <p className="text-body-sm text-on-surface-variant text-right italic">Faltam 200 pontos para o Nível Ouro</p>
             </div>
           </div>
-          <div className="md:col-span-5 h-64 md:h-full min-h-[300px] rounded-xl bg-gradient-to-br from-primary to-red-900 flex items-center justify-center">
-            <Icon name="workspace_premium" fill className="text-white text-[180px]" />
+          <div className="md:col-span-5 h-64 md:h-full min-h-[300px] rounded-xl bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-md overflow-hidden">
+            <img src={aviaoImg} alt="Recompensas SangueAmigo" className="max-h-full max-w-full object-contain drop-shadow-xl" />
           </div>
         </section>
 
@@ -50,9 +55,9 @@ function PontosPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
             {rewards.map((r) => (
               <div key={r.title} className="bg-white rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow group">
-                <div className="aspect-video relative bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
-                  <Icon name={r.icon} className="text-primary text-7xl group-hover:scale-110 transition-transform" />
-                  <div className="absolute top-sm right-sm bg-primary text-white px-3 py-1 rounded-full text-label-caps font-bold">{r.pts} pts</div>
+                <div className="aspect-video relative bg-gradient-to-br from-red-50 to-red-100 overflow-hidden">
+                  <img src={r.image} alt={r.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <div className="absolute top-sm right-sm bg-primary text-white px-3 py-1 rounded-full text-label-caps font-bold shadow-md">{r.pts} pts</div>
                 </div>
                 <div className="p-md flex flex-col">
                   <h3 className="font-title-sm mb-xs">{r.title}</h3>
