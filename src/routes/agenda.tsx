@@ -54,7 +54,6 @@ function AgendaPage() {
   const handleConfirm = () => {
     if (!canConfirm || !day || !time) return;
     const year = 2026;
-    const month = day >= 27 ? 6 : 7; // 27-31 = July, 1-2 = August (0-indexed below)
     const monthIdx = day >= 27 ? 6 : 7; // July=6, Aug=7
     const iso = new Date(year, monthIdx, day).toISOString();
     const u = units[unitKey];
