@@ -7,10 +7,9 @@ export const Route = createFileRoute("/historico")({
   component: HistoricoPage,
 });
 
-const rows = [
-  ["Posto de Coleta Móvel", "10 de maio de 2026"],
-  ["Hospital das Clínicas", "10 de março de 2026"],
-  ["Hemocentro Regional", "10 de janeiro de 2026"],
+const rows: { loc: string; date: string; pts: number }[] = [
+  { loc: "Hospital do Coração — Franca", date: "28 de abril de 2026", pts: 250 },
+  { loc: "Hemocentro de Franca", date: "22 de janeiro de 2026", pts: 250 },
 ];
 
 function HistoricoPage() {
@@ -24,9 +23,9 @@ function HistoricoPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
           {[
-            ["favorite", "Total de Doações", "6 vezes"],
-            ["water_drop", "Litros Doados", "2,7 L"],
-            ["groups", "Vidas Ajudadas", "12 Pessoas"],
+            ["favorite", "Total de Doações", "2 vezes"],
+            ["water_drop", "Litros Doados", "0,9 L"],
+            ["groups", "Vidas Ajudadas", "8 Pessoas"],
           ].map(([icon, label, val]) => (
             <div key={label} className="bg-surface-container-lowest border border-slate-200 rounded-xl p-md flex items-center gap-4 shadow-sm">
               <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
@@ -44,11 +43,11 @@ function HistoricoPage() {
           <div className="lg:col-span-7 bg-surface-container-lowest border border-slate-200 rounded-xl p-md shadow-sm">
             <h2 className="font-title-sm text-title-sm mb-4">Impacto Estimado</h2>
             <div className="mb-6">
-              <span className="font-display-lg text-display-lg text-primary">16 Pessoas</span>
+              <span className="font-display-lg text-display-lg text-primary">8 Pessoas</span>
               <p className="text-body-sm text-tertiary">ajudadas com suas doações</p>
             </div>
             <div className="w-full bg-slate-100 h-2 rounded-full mb-2">
-              <div className="bg-primary h-full rounded-full" style={{ width: "80%" }} />
+              <div className="bg-primary h-full rounded-full" style={{ width: "27%" }} />
             </div>
             <p className="text-xs text-tertiary text-right">Rumo à marca de 30 vidas</p>
             <div className="mt-6 italic text-body-sm text-tertiary border-l-2 border-primary pl-4">
@@ -58,9 +57,9 @@ function HistoricoPage() {
           <div className="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-md flex items-center justify-between shadow-sm">
             <div>
               <p className="text-body-sm text-tertiary">Tipo Sanguíneo</p>
-              <p className="font-display-lg text-display-lg">O+</p>
+              <p className="font-display-lg text-display-lg">A+</p>
             </div>
-            <div className="bg-red-50 text-primary px-4 py-2 rounded-xl font-bold">Doador Universal</div>
+            <div className="bg-red-50 text-primary px-4 py-2 rounded-xl font-bold">Doadora Ativa</div>
           </div>
         </div>
 
@@ -74,14 +73,20 @@ function HistoricoPage() {
                 <tr className="bg-slate-50">
                   <th className="px-6 py-4 font-label-caps text-label-caps text-tertiary">LOCALIZAÇÃO</th>
                   <th className="px-6 py-4 font-label-caps text-label-caps text-tertiary">DATA</th>
+                  <th className="px-6 py-4 font-label-caps text-label-caps text-tertiary">PONTOS</th>
                   <th className="px-6 py-4 font-label-caps text-label-caps text-tertiary">STATUS</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {rows.map(([loc, date]) => (
-                  <tr key={loc} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4 text-body-lg">{loc}</td>
-                    <td className="px-6 py-4 text-body-lg text-tertiary">{date}</td>
+                {rows.map((r) => (
+                  <tr key={r.loc} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-6 py-4 text-body-lg">{r.loc}</td>
+                    <td className="px-6 py-4 text-body-lg text-tertiary">{r.date}</td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-primary font-bold text-sm">
+                        <Icon name="stars" fill className="text-sm" /> +{r.pts} pts
+                      </span>
+                    </td>
                     <td className="px-6 py-4">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-medium text-sm">
                         <Icon name="check_circle" fill className="text-sm" />

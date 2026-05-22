@@ -25,19 +25,19 @@ function PontosPage() {
       <main className="pt-8 pb-lg max-w-7xl mx-auto px-md md:px-xl">
         <section className="mb-lg grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
           <div className="md:col-span-7 bg-white p-lg rounded-xl border border-outline-variant/30 flex flex-col justify-center">
-            <h1 className="font-display-lg text-display-lg text-primary mb-xs">Você tem 800 pontos</h1>
+            <h1 className="font-display-lg text-display-lg text-primary mb-xs">Você tem 500 pontos</h1>
             <p className="text-body-lg text-on-surface-variant mb-md">
               Continue doando e salvando vidas para subir de nível e desbloquear mais recompensas.
             </p>
             <div className="space-y-sm">
               <div className="flex justify-between items-end">
                 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Nível Prata</span>
-                <span className="font-title-sm text-title-sm text-primary">800/1000</span>
+                <span className="font-title-sm text-title-sm text-primary">500/1000</span>
               </div>
               <div className="w-full bg-surface-container rounded-full h-4 overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "80%" }} />
+                <div className="bg-primary h-full rounded-full" style={{ width: "50%" }} />
               </div>
-              <p className="text-body-sm text-on-surface-variant text-right italic">Faltam 200 pontos para o Nível Ouro</p>
+              <p className="text-body-sm text-on-surface-variant text-right italic">Faltam 500 pontos para o Nível Ouro</p>
             </div>
           </div>
           <div className="md:col-span-5 h-64 md:h-full min-h-[300px] rounded-xl bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-md overflow-hidden">
@@ -73,9 +73,8 @@ function PontosPage() {
           <h2 className="font-headline-md text-headline-md mb-lg">Histórico de Resgates</h2>
           <div className="space-y-6 relative before:absolute before:left-[21px] before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant/30">
             {[
-              ["Doação Confirmada - Posto de Coleta Móvel", "10 Mai 2026", "+200 pontos acumulados"],
-              ["Doação Confirmada - Hospital das Clínicas", "10 Mar 2026", "+200 pontos acumulados"],
-              ["Doação Confirmada - Hospital Regional", "10 Jan 2026", "+100 pontos de bônus campanha"],
+              ["Doação Confirmada - Hospital do Coração — Franca", "28 Abr 2026", "+250 pontos acumulados"],
+              ["Doação Confirmada - Hemocentro de Franca", "22 Jan 2026", "+250 pontos acumulados"],
             ].map(([title, date, pts]) => (
               <div key={title} className="relative flex gap-md items-start">
                 <div className="relative z-10 w-11 h-11 rounded-full bg-green-100 flex items-center justify-center border-4 border-white shadow-sm shrink-0">
