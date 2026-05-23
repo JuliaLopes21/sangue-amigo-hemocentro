@@ -1,11 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/hemocentros")({
   head: () => ({ meta: [{ title: "Hemocentros — SangueAmigo" }, { name: "description", content: "Encontre hemocentros e veja estoques de sangue." }] }),
   component: HemocentrosPage,
 });
+
+const francaUnits = [
+  {
+    name: "Núcleo de Hemoterapia de Franca",
+    address: "Rua Cel. Flauzino Barbosa Sandoval, 100 — Franca, SP",
+    distance: "1.8 km",
+  },
+  {
+    name: "Santa Casa de Misericórdia de Franca",
+    address: "Rua Cel. Flauzino Barbosa Sandoval, 121 — Franca, SP",
+    distance: "2.1 km",
+  },
+  {
+    name: "Hospital do Coração — Franca",
+    address: "Av. Dr. Hélio Palermo, 2900 — Franca, SP",
+    distance: "3.2 km",
+  },
+];
 
 // Dados aproximados do Núcleo de Hemoterapia de Franca / Santa Casa de Franca
 // (estoque historicamente baixo desde abril/2025, processamento centralizado em Ribeirão Preto desde 2026).
@@ -31,13 +50,33 @@ function HemocentrosPage() {
           <p className="text-body-lg text-tertiary max-w-3xl mb-6">
             Núcleo de Hemoterapia de Franca, Santa Casa de Misericórdia e Hospital do Coração. Dados aproximados — estoques vêm baixos desde 2025.
           </p>
-          <div className="flex flex-wrap gap-4 mb-8">
-            <button className="bg-primary text-white h-12 px-8 rounded-xl font-headline-md flex items-center gap-2 hover:bg-on-primary-fixed-variant transition-all">
-              <Icon name="search" /> Buscar Hemocentros
-            </button>
-            <button className="bg-white border-2 border-primary text-primary h-12 px-8 rounded-xl font-headline-md flex items-center gap-2 hover:bg-primary-fixed transition-all">
-              <Icon name="map" /> Ver no Mapa
-            </button>
+          <div className="bg-white rounded-2xl border border-outline-variant/40 shadow-sm p-md mb-8">
+            <div className="flex items-center gap-2 mb-md text-primary">
+              <Icon name="search" />
+              <h2 className="font-title-sm">Hemocentros disponíveis em Franca</h2>
+            </div>
+            <p className="text-body-sm text-tertiary mb-md">Selecione uma unidade para agendar sua doação agora mesmo.</p>
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {francaUnits.map((u) => (
+                <li key={u.name}>
+                  <Link
+                    to="/agenda"
+                    search={{ unit: u.name }}
+                    className="block h-full p-4 border border-outline-variant/50 rounded-xl hover:border-primary hover:bg-red-50/40 transition-all group"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <Icon name="bloodtype" fill className="text-primary" />
+                      <span className="text-[10px] font-label-caps uppercase tracking-widest text-tertiary">{u.distance}</span>
+                    </div>
+                    <p className="font-bold text-on-surface group-hover:text-primary transition-colors">{u.name}</p>
+                    <p className="text-xs text-tertiary mt-1">{u.address}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-primary text-body-sm font-bold">
+                      Agendar aqui <Icon name="arrow_forward" className="text-sm" />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

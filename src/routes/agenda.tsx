@@ -11,6 +11,9 @@ export const Route = createFileRoute("/agenda")({
       { name: "description", content: "Reserve o seu horário em um hemocentro próximo." },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    unit: typeof s.unit === "string" ? s.unit : undefined,
+  }),
   component: AgendaPage,
 });
 
@@ -44,10 +47,13 @@ const units: Record<string, { label: string; address: string }> = {
 function AgendaPage() {
   const navigate = useNavigate();
   const existing = useAppointment();
+  const { unit: unitFromUrl } = Route.useSearch();
   const [city, setCity] = useState("Franca, SP");
-  const [unitKey, setUnitKey] = useState<keyof typeof units>("Hemocentro de Franca");
+  const initialUnit = (unitFromUrl && (Object.keys(units) as Array<keyof typeof units>).find((k) => k === unitFromUrl)) || "Hemocentro de Franca";
+  const [unitKey, setUnitKey] = useState<keyof typeof units>(initialUnit as keyof typeof units);
   const [day, setDay] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
+  const [friendCode, setFriendCode] = useState("");
 
   const canConfirm = !!day && !!time && !!unitKey;
 
@@ -183,6 +189,27 @@ function AgendaPage() {
                     </button>
                   );
                 })}
+              </div>
+            </section>
+
+            <section className="space-y-md">
+              <div className="flex items-center gap-sm">
+                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">
+                  <Icon name="group_add" className="text-base" />
+                </div>
+                <h2 className="font-headline-md text-headline-md">Veio por indicação de um amigo?</h2>
+              </div>
+              <p className="text-body-sm text-on-surface-variant -mt-2">
+                Informe o código de indicação para que seu amigo ganhe +200 pontos quando você confirmar a doação. Opcional.
+              </p>
+              <div className="relative max-w-md">
+                <Icon name="confirmation_number" className="absolute left-3 top-1/2 -translate-y-1/2 text-primary" />
+                <input
+                  value={friendCode}
+                  onChange={(e) => setFriendCode(e.target.value.toUpperCase())}
+                  placeholder="EX: AMIGO-7K2P"
+                  className="w-full h-12 pl-10 pr-4 bg-surface-container-lowest border border-outline rounded-lg outline-none focus:ring-2 focus:ring-primary focus:border-primary uppercase tracking-widest"
+                />
               </div>
             </section>
 

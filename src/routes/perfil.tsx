@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import jessicaAvatar from "@/assets/jessica-avatar.jpg";
 import susCard from "@/assets/sus-card.jpg";
+import { setAppointment } from "@/lib/schedule";
 
 export const Route = createFileRoute("/perfil")({
   head: () => ({ meta: [{ title: "Meu Perfil — SangueAmigo" }, { name: "description", content: "Suas informações pessoais e dados de saúde." }] }),
@@ -20,6 +21,11 @@ const personal: [string, string][] = [
 ];
 
 function PerfilPage() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setAppointment(null);
+    navigate({ to: "/login" });
+  };
   return (
     <AppLayout>
       <main className="pt-8 pb-12 px-4 md:px-12 max-w-6xl mx-auto">
@@ -28,9 +34,14 @@ function PerfilPage() {
             <h1 className="font-display-lg text-display-lg text-on-background mb-2">Meu Perfil</h1>
             <p className="text-body-lg text-slate-500">Gerencie suas informações pessoais e dados de saúde.</p>
           </div>
-          <button className="flex items-center gap-2 px-6 py-2 border-2 border-primary text-primary font-bold rounded-xl hover:bg-red-50 transition-colors">
-            <Icon name="edit" className="text-sm" /> Editar Dados
-          </button>
+          <div className="flex flex-wrap gap-3">
+            <button className="flex items-center gap-2 px-6 py-2 border-2 border-primary text-primary font-bold rounded-xl hover:bg-red-50 transition-colors">
+              <Icon name="edit" className="text-sm" /> Editar Dados
+            </button>
+            <button onClick={handleLogout} className="flex items-center gap-2 px-6 py-2 bg-primary text-white font-bold rounded-xl hover:brightness-90 transition-all active:scale-95">
+              <Icon name="logout" className="text-sm" /> Sair
+            </button>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

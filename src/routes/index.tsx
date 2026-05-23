@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import { useAppointment } from "@/lib/schedule";
+import bloodBg from "@/assets/blood-molecules-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,6 +26,16 @@ function Index() {
     <AppLayout>
       <main className="pt-8 px-4 md:px-12 max-w-screen-2xl mx-auto">
         <section className="bg-primary-container rounded-3xl p-8 md:p-16 mb-10 overflow-hidden relative shadow-lg">
+          <img
+            src={bloodBg}
+            alt=""
+            aria-hidden="true"
+            width={1536}
+            height={896}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-container via-primary-container/85 to-primary-container/40 pointer-events-none" />
           <div className="max-w-3xl relative z-10">
             <h1 className="font-headline-md text-4xl md:text-6xl text-on-primary-container mb-6 leading-tight">
               Obrigada Jessica, suas doações já salvaram 8 vidas.
@@ -41,10 +52,7 @@ function Index() {
               </Link>
             </div>
           </div>
-          <div className="absolute -right-20 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none">
-            <Icon name="volunteer_activism" className="text-[320px]" />
-          </div>
-          <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute left-1/4 -bottom-20 w-64 h-64 bg-white/5 rounded-full blur-2xl" />
         </section>
 
@@ -134,8 +142,8 @@ function Index() {
                   <div className="mb-3 w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md">
                     <Icon name="bloodtype" fill className="text-4xl" />
                   </div>
-                  <h4 className="font-headline-md text-xl">URGÊNCIA O-</h4>
-                  <p className="text-xs font-label-caps text-white/80 tracking-widest">NÍVEL CRÍTICO</p>
+                  <h4 className="font-headline-md text-xl">OAB FRANCA PELA VIDA</h4>
+                  <p className="text-xs font-label-caps text-white/80 tracking-widest">URGÊNCIA EM FRANCA</p>
                 </div>
                 <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-xl" />
                 <div className="absolute -left-8 -top-8 w-40 h-40 bg-black/10 rounded-full blur-xl" />
@@ -146,9 +154,9 @@ function Index() {
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="font-title-sm text-on-surface mb-2">Salve Vidas: Estoque de Sangue O-</h3>
+                <h3 className="font-title-sm text-on-surface mb-2">Campanha OAB Franca pela Vida</h3>
                 <p className="text-body-sm text-slate-500 mb-6 flex-1">
-                  Estamos com níveis críticos para o tipo O Negativo. Se você é doador deste tipo, sua ajuda é urgente para pacientes em cirurgias de emergência.
+                  O Núcleo de Hemoterapia de Franca está com estoque crítico de O-, A- e B-. Participe da campanha local até 30 de Maio e ajude a salvar vidas em Franca.
                 </p>
                 <Link to="/campanhas" className="w-full text-center py-3 border-2 border-primary text-primary font-headline-md rounded-2xl hover:bg-primary hover:text-white transition-all">
                   Ver Detalhes
