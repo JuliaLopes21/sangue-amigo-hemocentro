@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import logo from "@/assets/logo-sangueamigo.png";
+import heroImage from "@/assets/login-hero.png";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -118,37 +119,24 @@ function LoginPage() {
       </div>
 
       {/* Right: Hero */}
-      <div className="hidden lg:flex w-1/2 bg-[#fef2f2] relative overflow-hidden items-center justify-center p-12">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full opacity-40 blur-3xl -mr-48 -mt-48" />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#bc000a]/5 to-transparent" />
+      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-[#fef2f2] via-white to-[#e0f2fe] relative overflow-hidden items-center justify-center p-12">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#bc000a]/5 rounded-full blur-3xl -mr-48 -mt-48" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl -ml-48 -mb-48" />
 
         <div className="relative z-10 flex flex-col items-center max-w-lg">
-          <div className="w-72 h-72 bg-gradient-to-br from-[#bc000a] to-[#7a0007] rounded-[48px] shadow-2xl shadow-[#bc000a]/40 flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform duration-700 mb-16">
-            <div className="relative">
-              <svg className="w-32 h-32 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-1">
-                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                  <path d="M12 8v8m-4-4h8" strokeLinecap="round" />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <img
+            src={heroImage}
+            alt="Doação de sangue com cuidado e atenção"
+            className="w-full max-w-md drop-shadow-2xl mb-10"
+          />
 
           <div className="text-center space-y-4">
-            <h2 className="text-5xl xl:text-6xl font-black text-[#bc000a] leading-[1.1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h2 className="text-4xl xl:text-5xl font-black text-[#bc000a] leading-[1.1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
               Doe sangue,<br />salve vidas.
             </h2>
-            <p className="text-[#7a0007]/60 text-xl font-medium leading-relaxed max-w-sm mx-auto">
+            <p className="text-[#7a0007]/70 text-lg font-medium leading-relaxed max-w-sm mx-auto">
               Seu gesto simples pode ser a esperança de alguém hoje.
             </p>
-          </div>
-
-          <div className="mt-12 flex gap-4">
-            <div className="w-3 h-3 rounded-full bg-[#bc000a]/20 animate-bounce" />
-            <div className="w-3 h-3 rounded-full bg-[#bc000a]/20 animate-bounce [animation-delay:0.2s]" />
-            <div className="w-3 h-3 rounded-full bg-[#bc000a]/20 animate-bounce [animation-delay:0.4s]" />
           </div>
         </div>
       </div>
