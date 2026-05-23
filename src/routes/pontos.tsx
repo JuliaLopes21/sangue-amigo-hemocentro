@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import aviaoImg from "@/assets/pontos-aviao.png";
@@ -16,10 +17,26 @@ const rewards = [
   { title: "Desconto em passagens", desc: "Ganhe até 20% de desconto em trechos nacionais com a LATAM.", pts: 500, image: viagemImg },
   { title: "Desconto Farmácia", desc: "Até 20% de desconto em qualquer Droga Raia ou Drogasil.", pts: 300, image: farmaciaImg },
   { title: "Isenção taxa IPVA", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1000, image: ipvaImg },
-  { title: "Isenção Taxa IPTU", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1500, image: iptuImg },
+  { title: "Isenção Taxa IPTU", desc: "Isenção garantida por lei para doadores recorrentes (min. 3x ano).", pts: 1000, image: iptuImg },
 ];
 
+function generateFriendCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for (let i = 0; i < 4; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return `AMIGO-${s}`;
+}
+
 function PontosPage() {
+  const friendCode = useMemo(() => generateFriendCode(), []);
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(friendCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {}
+  };
   return (
     <AppLayout>
       <main className="pt-8 pb-lg max-w-7xl mx-auto px-md md:px-xl">
@@ -30,14 +47,13 @@ function PontosPage() {
               Continue doando e salvando vidas para subir de nível e desbloquear mais recompensas.
             </p>
             <div className="space-y-sm">
-              <div className="flex justify-between items-end">
-                <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Nível Prata</span>
+              <div className="flex justify-end items-end">
                 <span className="font-title-sm text-title-sm text-primary">500/1000</span>
               </div>
               <div className="w-full bg-surface-container rounded-full h-4 overflow-hidden">
                 <div className="bg-primary h-full rounded-full" style={{ width: "50%" }} />
               </div>
-              <p className="text-body-sm text-on-surface-variant text-right italic">Faltam 500 pontos para o Nível Ouro</p>
+              <p className="text-body-sm text-on-surface-variant text-right italic">Falta pouco para alcançar os 1000 pontos.</p>
             </div>
           </div>
           <div className="md:col-span-5 h-64 md:h-full min-h-[300px] rounded-xl bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-md overflow-hidden">
@@ -59,13 +75,37 @@ function PontosPage() {
                   <img src={r.image} alt={r.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                   <div className="absolute top-sm right-sm bg-primary text-white px-3 py-1 rounded-full text-label-caps font-bold shadow-md">{r.pts} pts</div>
                 </div>
-                <div className="p-md flex flex-col">
+                <div className="p-md flex flex-col flex-1">
                   <h3 className="font-title-sm mb-xs">{r.title}</h3>
-                  <p className="text-body-sm text-on-surface-variant mb-md">{r.desc}</p>
+                  <p className="text-body-sm text-on-surface-variant mb-md flex-1">{r.desc}</p>
                   <button className="w-full py-3 bg-primary text-white rounded-xl font-title-sm hover:brightness-90 transition-all active:scale-95 mt-auto">Resgatar Agora</button>
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-lg">
+          <div className="bg-gradient-to-br from-red-50 to-white border border-primary/20 rounded-xl p-lg flex flex-col md:flex-row gap-lg items-center">
+            <div className="w-20 h-20 rounded-2xl bg-primary text-white flex items-center justify-center shrink-0 shadow-md">
+              <Icon name="group_add" className="text-4xl" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="font-headline-md text-headline-md text-primary mb-1">Traga um amigo e ganhe +200 pontos</h2>
+              <p className="text-body-sm text-on-surface-variant">
+                Compartilhe seu código com um amigo. Quando ele informar no agendamento dele, vocês dois ganham bônus.
+              </p>
+            </div>
+            <div className="flex flex-col items-stretch gap-2 w-full md:w-auto">
+              <div className="flex items-center gap-2 bg-white border-2 border-dashed border-primary rounded-xl px-4 py-3">
+                <Icon name="confirmation_number" className="text-primary" />
+                <span className="font-bold tracking-[3px] text-primary text-lg">{friendCode}</span>
+              </div>
+              <button onClick={copy} className="w-full py-3 bg-primary text-white rounded-xl font-title-sm hover:brightness-90 transition-all active:scale-95 flex items-center justify-center gap-2">
+                <Icon name={copied ? "check" : "content_copy"} className="text-sm" />
+                {copied ? "Copiado!" : "Copiar código"}
+              </button>
+            </div>
           </div>
         </section>
 
