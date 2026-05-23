@@ -54,7 +54,7 @@ const cards = [
 function CampanhasPage() {
   return (
     <AppLayout>
-      <main className="pt-8 pb-12">
+      <main className="pt-1 pb-12">
         <section className="bg-primary px-md text-white overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <img
