@@ -18,7 +18,7 @@ function LoginPage() {
       <div className="w-full lg:w-1/2 flex flex-col p-8 md:p-16 lg:p-20 xl:p-24">
         <div className="mb-16 shrink-0">
           <Link to="/" aria-label="SangueAmigo - Início" className="inline-flex">
-            <img src={logo} alt="SangueAmigo" className="h-12 w-auto" />
+            <img src={logo} alt="SangueAmigo" className="h-16 w-auto" />
           </Link>
         </div>
 
