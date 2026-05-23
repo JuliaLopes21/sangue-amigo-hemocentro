@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import { setAppointment, useAppointment } from "@/lib/schedule";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
@@ -18,13 +20,13 @@ export const Route = createFileRoute("/agenda")({
 });
 
 const dayDefs = [
-  { dow: "SEG", day: 27, enabled: true },
-  { dow: "TER", day: 28, enabled: true },
-  { dow: "QUA", day: 29, enabled: true },
-  { dow: "QUI", day: 30, enabled: true },
-  { dow: "SEX", day: 31, enabled: true },
-  { dow: "SAB", day: 1, enabled: false },
-  { dow: "DOM", day: 2, enabled: false },
+  { dow: "SEG", date: new Date(2026, 6, 27), enabled: true },
+  { dow: "TER", date: new Date(2026, 6, 28), enabled: true },
+  { dow: "QUA", date: new Date(2026, 6, 29), enabled: true },
+  { dow: "QUI", date: new Date(2026, 6, 30), enabled: true },
+  { dow: "SEX", date: new Date(2026, 6, 31), enabled: true },
+  { dow: "SAB", date: new Date(2026, 7, 1), enabled: false },
+  { dow: "DOM", date: new Date(2026, 7, 2), enabled: false },
 ] as const;
 
 const times = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30"];
@@ -51,21 +53,19 @@ function AgendaPage() {
   const [city, setCity] = useState("Franca, SP");
   const initialUnit = (unitFromUrl && (Object.keys(units) as Array<keyof typeof units>).find((k) => k === unitFromUrl)) || "Hemocentro de Franca";
   const [unitKey, setUnitKey] = useState<keyof typeof units>(initialUnit as keyof typeof units);
-  const [day, setDay] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [friendCode, setFriendCode] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const canConfirm = !!day && !!time && !!unitKey;
+  const canConfirm = !!selectedDate && !!time && !!unitKey;
 
   const handleConfirm = () => {
-    if (!canConfirm || !day || !time) return;
-    const year = 2026;
-    const monthIdx = day >= 27 ? 6 : 7; // July=6, Aug=7
-    const iso = new Date(year, monthIdx, day).toISOString();
+    if (!canConfirm || !selectedDate || !time) return;
     const u = units[unitKey];
     setAppointment({
-      date: iso,
+      date: selectedDate.toISOString(),
       time,
       unit: u.label,
       address: u.address,
@@ -76,10 +76,12 @@ function AgendaPage() {
   };
 
   const summary = useMemo(() => {
-    if (!day || !time) return null;
-    const monthLabel = day >= 27 ? "Julho" : "Agosto";
-    return `${day} de ${monthLabel} de 2026, às ${time}`;
-  }, [day, time]);
+    if (!selectedDate || !time) return null;
+    return `${selectedDate.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}, às ${time}`;
+  }, [selectedDate, time]);
+
+  const isSameDay = (a: Date, b: Date) =>
+    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
   return (
     <AppLayout>
@@ -134,18 +136,38 @@ function AgendaPage() {
             </section>
 
             <section className="space-y-md">
-              <div className="flex items-center gap-sm">
-                <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">2</div>
-                <h2 className="font-headline-md text-headline-md">Selecione o Dia</h2>
+              <div className="flex items-center justify-between gap-sm flex-wrap">
+                <div className="flex items-center gap-sm">
+                  <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">2</div>
+                  <h2 className="font-headline-md text-headline-md">Selecione o Dia</h2>
+                </div>
+                <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center gap-2 border border-outline px-4 py-2 rounded-lg text-sm font-semibold hover:border-primary hover:text-primary transition-colors">
+                      <Icon name="calendar_month" className="text-base" />
+                      Escolher outra data
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 pointer-events-auto" align="end">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate ?? undefined}
+                      onSelect={(d) => { if (d) { setSelectedDate(d); setCalendarOpen(false); } }}
+                      disabled={(d) => d < new Date(new Date().setHours(0,0,0,0))}
+                      initialFocus
+                      className="p-3 pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div className="grid grid-cols-4 sm:grid-cols-7 gap-sm">
                 {dayDefs.map((d) => {
-                  const isSelected = day === d.day;
+                  const isSelected = !!selectedDate && isSameDay(selectedDate, d.date);
                   return (
                     <button
-                      key={d.day}
+                      key={d.date.toISOString()}
                       disabled={!d.enabled}
-                      onClick={() => setDay(d.day)}
+                      onClick={() => setSelectedDate(d.date)}
                       className={
                         "flex flex-col items-center justify-center py-md rounded-xl border transition-all " +
                         (isSelected
@@ -156,11 +178,17 @@ function AgendaPage() {
                       }
                     >
                       <span className={"text-xs font-bold uppercase " + (isSelected ? "text-white/80" : "text-outline-variant")}>{d.dow}</span>
-                      <span className="text-lg font-bold">{d.day}</span>
+                      <span className="text-lg font-bold">{d.date.getDate()}</span>
                     </button>
                   );
                 })}
               </div>
+              {selectedDate && !dayDefs.some((d) => isSameDay(d.date, selectedDate)) && (
+                <div className="bg-red-50 text-primary px-4 py-2 rounded-lg text-sm font-semibold inline-flex items-center gap-2">
+                  <Icon name="event" className="text-base" />
+                  Data escolhida: {selectedDate.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+                </div>
+              )}
             </section>
 
             <section className="space-y-md">
