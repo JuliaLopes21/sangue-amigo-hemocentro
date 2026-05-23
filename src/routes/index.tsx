@@ -175,13 +175,13 @@ function Index() {
                   title="Mapa de hemocentros em Franca-SP"
                   className="absolute inset-0 w-full h-full border-0"
                   loading="lazy"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-47.4350%2C-20.5550%2C-47.3650%2C-20.5050&layer=mapnik"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-47.4200%2C-20.5600%2C-47.3700%2C-20.5200&layer=mapnik"
                 />
                 <div className="absolute inset-0 pointer-events-none">
                   {[
-                    { top: "42%", left: "48%", label: "Hemocentro de Franca" },
-                    { top: "30%", left: "65%", label: "Hospital do Coração" },
-                    { top: "60%", left: "32%", label: "Santa Casa de Franca" },
+                    { top: "47%", left: "39%", label: "Hemocentro de Franca" },
+                    { top: "67%", left: "57%", label: "Hospital do Coração" },
+                    { top: "72%", left: "63%", label: "Santa Casa de Franca" },
                   ].map((m) => (
                     <div
                       key={m.label}
