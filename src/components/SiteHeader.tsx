@@ -19,7 +19,7 @@ export function SiteHeader() {
       <div className="flex justify-between items-center h-20 px-6 md:px-12 w-full max-w-screen-2xl mx-auto">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center" aria-label="SangueAmigo - Início">
-            <img src={logo} alt="SangueAmigo" className="h-14 w-auto" />
+            <img src={logo} alt="SangueAmigo" className="h-[72px] w-auto" />
           </Link>
           <nav className="hidden md:flex gap-6 font-headline-md font-medium text-sm tracking-wide">
             {NAV.map((item) => {

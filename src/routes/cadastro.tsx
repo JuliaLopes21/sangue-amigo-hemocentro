@@ -18,7 +18,7 @@ function CadastroPage() {
       <header className="bg-white border-b border-slate-100 fixed top-0 w-full z-50">
         <div className="flex justify-between items-center h-16 px-6 md:px-12 w-full max-w-screen-2xl mx-auto">
           <Link to="/" aria-label="SangueAmigo - Início" className="inline-flex">
-            <img src={logo} alt="SangueAmigo" className="h-10 w-auto" />
+            <img src={logo} alt="SangueAmigo" className="h-16 w-auto" />
           </Link>
           <Link to="/login" className="font-label-caps text-primary hover:underline">JÁ TENHO CONTA</Link>
         </div>
