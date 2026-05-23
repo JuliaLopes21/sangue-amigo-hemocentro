@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import logo from "@/assets/logo-sangueamigo.png";
+import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -12,6 +14,21 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim().toLowerCase() === "jessica.silva@email.com" && password === "jessica123") {
+      setError(null);
+      navigate({ to: "/" });
+    } else {
+      setError("E-mail ou senha incorretos. Use jessica.silva@email.com / jessica123");
+    }
+  };
+
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row bg-white" style={{ fontFamily: "Manrope, sans-serif" }}>
       {/* Left: Form */}
@@ -32,7 +49,7 @@ function LoginPage() {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-[11px] font-bold text-gray-400 uppercase tracking-[2px] ml-1" htmlFor="email">E-mail</label>
               <div className="relative group">
@@ -42,6 +59,8 @@ function LoginPage() {
                   </svg>
                 </div>
                 <input id="email" type="email" placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#bc000a]/10 focus:border-[#bc000a] focus:bg-white transition-all" />
               </div>
             </div>
@@ -55,6 +74,8 @@ function LoginPage() {
                   </svg>
                 </div>
                 <input id="password" type="password" placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-12 pr-12 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#bc000a]/10 focus:border-[#bc000a] focus:bg-white transition-all" />
                 <button type="button" className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600">
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,6 +87,16 @@ function LoginPage() {
               <div className="flex justify-end pt-1">
                 <a href="#" className="text-sm font-semibold text-[#bc000a] hover:text-[#7a0007] transition-colors">Esqueceu a senha?</a>
               </div>
+            </div>
+
+            {error && (
+              <div className="rounded-2xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-[#bc000a] font-medium">
+                {error}
+              </div>
+            )}
+
+            <div className="rounded-2xl bg-gray-50 border border-gray-100 px-4 py-3 text-xs text-gray-500">
+              <span className="font-bold text-gray-700">Conta de teste:</span> jessica.silva@email.com / jessica123
             </div>
 
             <button type="submit"
