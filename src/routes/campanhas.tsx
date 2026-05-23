@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
+import cover from "@/assets/campanhas-cover.png";
 
 export const Route = createFileRoute("/campanhas")({
   head: () => ({ meta: [{ title: "Campanhas — SangueAmigo" }, { name: "description", content: "Campanhas de doação ativas e urgentes." }] }),
@@ -54,14 +55,18 @@ function CampanhasPage() {
   return (
     <AppLayout>
       <main className="pt-8 pb-12">
-        <section className="bg-primary py-xl px-md text-white">
+        <section className="bg-primary px-md text-white overflow-hidden">
           <div className="max-w-7xl mx-auto">
-            <h1 className="font-display-lg text-display-lg text-white mb-2">Campanhas Ativas em Franca</h1>
-            <p className="text-white/80">Participe das campanhas locais e ajude a salvar vidas em Franca, SP.</p>
+            <img
+              src={cover}
+              alt="Gotas que salvam vidas — participe das campanhas locais"
+              className="w-full h-auto object-contain block"
+              loading="eager"
+            />
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-md -mt-8">
+        <section className="max-w-7xl mx-auto px-md mt-md">
           <div className="bg-white p-md rounded-2xl shadow-xl border border-slate-100 flex flex-col md:flex-row gap-md items-end">
             <div className="flex-1 w-full space-y-2">
               <label className="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
