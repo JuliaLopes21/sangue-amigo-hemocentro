@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import logo from "@/assets/logo-sangueamigo.png";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -16,8 +17,8 @@ function LoginPage() {
       {/* Left: Form */}
       <div className="w-full lg:w-1/2 flex flex-col p-8 md:p-16 lg:p-20 xl:p-24">
         <div className="mb-16 shrink-0">
-          <Link to="/" className="text-2xl font-extrabold tracking-tighter text-[#bc000a]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            Sangue<span className="text-[#7a0007]">Amigo</span>
+          <Link to="/" aria-label="SangueAmigo - Início" className="inline-flex">
+            <img src={logo} alt="SangueAmigo" className="h-12 w-auto" />
           </Link>
         </div>
 
