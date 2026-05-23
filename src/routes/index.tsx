@@ -175,13 +175,29 @@ function Index() {
                   title="Mapa de hemocentros em Franca-SP"
                   className="absolute inset-0 w-full h-full border-0"
                   loading="lazy"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-47.4350%2C-20.5550%2C-47.3650%2C-20.5050&layer=mapnik&marker=-20.5386%2C-47.4006"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-47.4350%2C-20.5550%2C-47.3650%2C-20.5050&layer=mapnik"
                 />
+                <div className="absolute inset-0 pointer-events-none">
+                  {[
+                    { top: "42%", left: "48%", label: "Hemocentro de Franca" },
+                    { top: "30%", left: "65%", label: "Hospital do Coração" },
+                    { top: "60%", left: "32%", label: "Santa Casa de Franca" },
+                  ].map((m) => (
+                    <div
+                      key={m.label}
+                      className="absolute -translate-x-1/2 -translate-y-full"
+                      style={{ top: m.top, left: m.left }}
+                      title={m.label}
+                    >
+                      <div className="relative flex flex-col items-center">
+                        <span className="absolute inset-0 w-5 h-5 rounded-full bg-primary/40 animate-ping" />
+                        <span className="w-5 h-5 rounded-full bg-primary border-2 border-white shadow-md" />
+                        <span className="w-1.5 h-2 bg-primary -mt-0.5" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white/40 to-transparent" />
-                <Link to="/hemocentros" className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-slate-100 hover:bg-slate-50 transition-all">
-                  <Icon name="map" className="text-primary text-sm" />
-                  <span className="font-label-caps text-on-surface">Abrir Mapa</span>
-                </Link>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-start gap-3 p-3 bg-surface rounded-xl border border-slate-50">
