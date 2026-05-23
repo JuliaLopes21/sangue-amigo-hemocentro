@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Icon } from "./Icon";
+import jessicaAvatar from "@/assets/jessica-avatar.jpg";
 
 const NAV = [
   { to: "/", label: "Início" },
@@ -42,8 +43,15 @@ export function SiteHeader() {
           <button className="p-2 hover:bg-slate-50 rounded-lg active:scale-95 transition-all">
             <Icon name="notifications" className="text-slate-600" />
           </button>
-          <Link to="/perfil" className="p-2 hover:bg-slate-50 rounded-lg active:scale-95 transition-all">
-            <Icon name="account_circle" className="text-slate-600" />
+          <Link to="/perfil" className="rounded-full active:scale-95 transition-all ring-2 ring-transparent hover:ring-primary/40">
+            <img
+              src={jessicaAvatar}
+              alt="Perfil de Jessica"
+              width={36}
+              height={36}
+              className="w-9 h-9 rounded-full object-cover"
+              loading="lazy"
+            />
           </Link>
         </div>
       </div>
