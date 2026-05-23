@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 
@@ -16,6 +16,7 @@ const cards = [
     loc: "Núcleo de Hemoterapia de Franca",
     addr: "Rua Cel. Flauzino Barbosa Sandoval, 100 — Franca, SP",
     types: ["O-", "O+", "A-", "B-", "AB-"],
+    unit: "Hemocentro de Franca",
   },
   {
     tag: "Sazonal",
@@ -25,6 +26,7 @@ const cards = [
     loc: "Santa Casa de Misericórdia de Franca",
     addr: "Rua Cel. Flauzino Barbosa Sandoval, 121 — Franca, SP",
     types: ["Todos os Tipos"],
+    unit: "Santa Casa de Misericórdia de Franca",
   },
   {
     tag: "Hospitalar",
@@ -34,6 +36,7 @@ const cards = [
     loc: "Hospital do Coração de Franca",
     addr: "Av. Dr. Hélio Palermo, 2900 — Franca, SP",
     types: ["O-", "AB-", "B-"],
+    unit: "Hospital do Coração — Franca",
   },
   {
     tag: "Solidária",
@@ -43,6 +46,7 @@ const cards = [
     loc: "Hospital do Câncer de Franca",
     addr: "Av. Dr. Hélio Palermo, 3265 — Franca, SP",
     types: ["A+", "O+", "B+"],
+    unit: "Hospital do Coração — Franca",
   },
 ];
 
@@ -105,7 +109,13 @@ function CampanhasPage() {
                   </div>
                 </div>
                 <div className="mt-lg flex gap-3">
-                  <button className="flex-1 bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-container transition-colors">Participe</button>
+                  <Link
+                    to="/agenda"
+                    search={{ unit: c.unit }}
+                    className="flex-1 text-center bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-container transition-colors"
+                  >
+                    Participe
+                  </Link>
                   <button className="flex-1 border border-primary text-primary py-3 rounded-xl font-bold hover:bg-red-50 transition-colors">Saiba Mais</button>
                 </div>
               </div>
