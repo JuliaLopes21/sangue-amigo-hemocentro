@@ -67,12 +67,6 @@ function CampanhasPage() {
                 <option>Franca, SP</option><option>Ribeirão Preto, SP</option><option>Batatais, SP</option>
               </select>
             </div>
-            <div className="flex-1 w-full space-y-2">
-              <label className="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
-                <Icon name="calendar_month" className="text-[16px]" /> Data
-              </label>
-              <input type="date" className="w-full h-12 bg-surface-container-low border border-outline-variant rounded-xl px-4 outline-none focus:ring-2 focus:ring-primary" />
-            </div>
             <button className="bg-primary text-white h-12 px-lg rounded-xl font-bold hover:bg-primary-container transition-all active:scale-95">Filtrar</button>
           </div>
         </section>
