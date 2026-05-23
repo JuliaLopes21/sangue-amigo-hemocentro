@@ -7,7 +7,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background text-on-background">
       <SiteHeader />
-      <div className="flex-1 pt-16 pb-24 md:pb-0">{children}</div>
+      <div className="flex-1 pt-20 pb-24 md:pb-0">{children}</div>
       <SiteFooter />
       <BottomNav />
     </div>
