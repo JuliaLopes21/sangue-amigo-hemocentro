@@ -70,7 +70,7 @@ function PontosPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
             {rewards.map((r) => (
-              <div key={r.title} className="bg-white rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow group">
+              <div key={r.title} className="bg-white rounded-xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-shadow group flex flex-col h-full">
                 <div className="aspect-video relative bg-gradient-to-br from-red-50 to-red-100 overflow-hidden">
                   <img src={r.image} alt={r.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                   <div className="absolute top-sm right-sm bg-primary text-white px-3 py-1 rounded-full text-label-caps font-bold shadow-md">{r.pts} pts</div>
