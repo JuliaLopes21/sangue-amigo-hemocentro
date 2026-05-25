@@ -78,8 +78,8 @@ function Index() {
                       <Icon name="schedule" fill className="text-primary text-2xl" />
                     </div>
                     <div>
-                      <p className="text-body-sm font-bold text-on-surface">Você poderá doar novamente</p>
-                      <p className="text-xs text-slate-500">em {nextAvailableLabel}</p>
+                      <p className="text-body-sm font-bold text-on-surface">Você irá doar novamente em</p>
+                      <p className="text-xs text-slate-500">{nextAvailableLabel}</p>
                     </div>
                   </div>
                   <div className="flex items-end justify-between mb-2">
