@@ -281,48 +281,34 @@ function AgendaPage() {
 
         {showConfirm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
-            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-              <div className="p-6 border-b border-slate-100 flex items-start gap-3">
-                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                  <Icon name="check_circle" fill className="text-green-600 text-2xl" />
+            <div className="bg-white rounded-2xl max-w-md w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+              <div className="p-4 border-b border-slate-100 flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                  <Icon name="check_circle" fill className="text-green-600 text-lg" />
                 </div>
                 <div>
-                  <h3 className="font-headline-md text-xl text-on-surface">Agendamento confirmado!</h3>
-                  <p className="text-body-sm text-on-surface-variant">Confira o que levar no dia da doação.</p>
+                  <h3 className="font-headline-md text-base text-on-surface">Agendamento confirmado!</h3>
+                  <p className="text-xs text-on-surface-variant">Confira o que levar no dia da doação.</p>
                 </div>
               </div>
-              <div className="p-6 space-y-5">
+              <div className="p-4 space-y-3 text-xs">
                 <div>
-                  <h4 className="font-bold text-on-surface mb-2">Pra levar — documento oficial com foto:</h4>
-                  <ul className="space-y-1.5 text-body-sm text-on-surface-variant">
-                    {["RG", "CNH", "Carteira de trabalho", "Passaporte", "Carteira digital oficial com foto"].map((d) => (
-                      <li key={d} className="flex items-center gap-2">
-                        <Icon name="check" className="text-green-600 text-sm" /> {d}
-                      </li>
-                    ))}
-                  </ul>
+                  <h4 className="font-bold text-on-surface mb-1.5 text-xs">Documento oficial com foto:</h4>
+                  <p className="text-on-surface-variant">RG, CNH, Carteira de trabalho, Passaporte ou carteira digital oficial com foto.</p>
                 </div>
-                <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-                  <p className="font-bold text-on-surface mb-2">O documento deve estar:</p>
-                  <ul className="space-y-1.5 text-body-sm text-on-surface-variant">
-                    <li className="flex items-center gap-2"><Icon name="bolt" className="text-primary text-sm" /> dentro da validade</li>
-                    <li className="flex items-center gap-2"><Icon name="bolt" className="text-primary text-sm" /> em bom estado</li>
-                    <li className="flex items-center gap-2"><Icon name="bolt" className="text-primary text-sm" /> com foto que permita identificação</li>
-                  </ul>
+                <div className="bg-red-50 border border-red-100 rounded-lg p-3">
+                  <p className="font-bold text-on-surface mb-1">O documento deve estar:</p>
+                  <p className="text-on-surface-variant">Dentro da validade, em bom estado e com foto que permita identificação.</p>
                 </div>
                 <div>
-                  <p className="font-bold text-on-surface mb-2">Alguns hemocentros também podem pedir:</p>
-                  <ul className="space-y-1.5 text-body-sm text-on-surface-variant">
-                    <li className="flex items-center gap-2"><Icon name="info" className="text-slate-400 text-sm" /> CPF</li>
-                    <li className="flex items-center gap-2"><Icon name="info" className="text-slate-400 text-sm" /> Cartão do SUS (não é obrigatório na maioria)</li>
-                    <li className="flex items-center gap-2"><Icon name="info" className="text-slate-400 text-sm" /> Comprovante de agendamento</li>
-                  </ul>
+                  <p className="font-bold text-on-surface mb-1">Alguns hemocentros também podem pedir:</p>
+                  <p className="text-on-surface-variant">CPF, Cartão do SUS e comprovante de agendamento.</p>
                 </div>
               </div>
-              <div className="p-6 border-t border-slate-100 flex justify-end">
+              <div className="p-4 border-t border-slate-100 flex justify-end">
                 <button
                   onClick={() => { setShowConfirm(false); navigate({ to: "/" }); }}
-                  className="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-all"
+                  className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-700 transition-all"
                 >
                   Entendi, ir para o início
                 </button>
