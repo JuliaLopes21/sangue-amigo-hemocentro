@@ -19,8 +19,19 @@ function Index() {
   const apptDate = appt ? new Date(appt.date) : null;
   const monthLabel = apptDate ? apptDate.toLocaleString("pt-BR", { month: "short" }).replace(".", "").toUpperCase() : "";
   const dayLabel = apptDate ? String(apptDate.getDate()).padStart(2, "0") : "";
-  const fullDateLabel = apptDate
-    ? apptDate.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
+  const nextAvailableDate = apptDate ? new Date(apptDate.getTime()) : null;
+  if (nextAvailableDate && apptDate) nextAvailableDate.setMonth(nextAvailableDate.getMonth() + 3);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const totalDays = 90;
+  const daysRemaining = nextAvailableDate
+    ? Math.max(0, Math.ceil((nextAvailableDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
+    : 0;
+  const progressPct = nextAvailableDate
+    ? Math.min(100, Math.max(0, ((totalDays - daysRemaining) / totalDays) * 100))
+    : 0;
+  const nextAvailableLabel = nextAvailableDate
+    ? nextAvailableDate.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
     : "";
   return (
     <AppLayout>
@@ -60,13 +71,38 @@ function Index() {
           <div className="md:col-span-4 flex flex-col gap-6">
             <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
               <h3 className="font-title-sm text-on-surface mb-4">Próxima Disponibilidade</h3>
-              <div className="py-6 text-center">
-                <div className="w-14 h-14 mx-auto rounded-full bg-slate-50 flex items-center justify-center mb-3">
-                  <Icon name="schedule" className="text-slate-300 text-3xl" />
+              {appt && nextAvailableDate ? (
+                <div className="py-2">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center shrink-0">
+                      <Icon name="schedule" fill className="text-primary text-2xl" />
+                    </div>
+                    <div>
+                      <p className="text-body-sm font-bold text-on-surface">Você poderá doar novamente</p>
+                      <p className="text-xs text-slate-500">em {nextAvailableLabel}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-between mb-2">
+                    <span className="font-headline-md text-3xl text-primary leading-none">{daysRemaining}</span>
+                    <span className="text-xs text-slate-500">dias restantes</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-red-400 rounded-full transition-all"
+                      style={{ width: `${progressPct}%` }}
+                    />
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-2">Intervalo mínimo de 3 meses entre doações.</p>
                 </div>
-                <p className="text-body-sm text-slate-500">Sem informações no momento.</p>
-                <p className="text-xs text-slate-400 mt-1">Agende sua próxima doação para ver a previsão aqui.</p>
-              </div>
+              ) : (
+                <div className="py-6 text-center">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-slate-50 flex items-center justify-center mb-3">
+                    <Icon name="schedule" className="text-slate-300 text-3xl" />
+                  </div>
+                  <p className="text-body-sm text-slate-500">Sem informações no momento.</p>
+                  <p className="text-xs text-slate-400 mt-1">Agende sua próxima doação para ver a previsão aqui.</p>
+                </div>
+              )}
             </div>
 
             <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm flex-1">
@@ -113,12 +149,6 @@ function Index() {
                         <span className="font-label-caps text-slate-500">HORÁRIO</span>
                         <p className="font-headline-md text-xl">{appt.time}</p>
                       </div>
-                    </div>
-                    <div className="mt-4 flex items-center gap-2 bg-red-50 text-primary px-4 py-3 rounded-xl">
-                      <Icon name="stars" fill className="text-lg" />
-                      <p className="text-body-sm font-bold">
-                        Você vai ganhar +{appt.rewardPoints} pontos nesta 3ª doação ({fullDateLabel}).
-                      </p>
                     </div>
                   </>
                 ) : (
