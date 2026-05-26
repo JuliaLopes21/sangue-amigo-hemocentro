@@ -56,7 +56,6 @@ function AgendaPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [friendCode, setFriendCode] = useState("");
-  const [showConfirm, setShowConfirm] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   const canConfirm = !!selectedDate && !!time && !!unitKey;
@@ -72,7 +71,7 @@ function AgendaPage() {
       city,
       rewardPoints: 500,
     });
-    setShowConfirm(true);
+    navigate({ to: "/" });
   };
 
   const summary = useMemo(() => {
