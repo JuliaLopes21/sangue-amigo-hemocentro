@@ -56,7 +56,6 @@ function AgendaPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [friendCode, setFriendCode] = useState("");
-  const [showConfirm, setShowConfirm] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   const canConfirm = !!selectedDate && !!time && !!unitKey;
@@ -72,7 +71,7 @@ function AgendaPage() {
       city,
       rewardPoints: 500,
     });
-    setShowConfirm(true);
+    navigate({ to: "/" });
   };
 
   const summary = useMemo(() => {
@@ -278,44 +277,6 @@ function AgendaPage() {
             </button>
           </div>
         </div>
-
-        {showConfirm && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
-            <div className="bg-white rounded-2xl max-w-md w-full max-h-[85vh] overflow-y-auto shadow-2xl">
-              <div className="p-4 border-b border-slate-100 flex items-start gap-3">
-                <div className="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                  <Icon name="check_circle" fill className="text-green-600 text-lg" />
-                </div>
-                <div>
-                  <h3 className="font-headline-md text-base text-on-surface">Agendamento confirmado!</h3>
-                  <p className="text-xs text-on-surface-variant">Confira o que levar no dia da doação.</p>
-                </div>
-              </div>
-              <div className="p-4 space-y-3 text-xs">
-                <div>
-                  <h4 className="font-bold text-on-surface mb-1.5 text-xs">Documento oficial com foto:</h4>
-                  <p className="text-on-surface-variant">RG, CNH, Carteira de trabalho, Passaporte ou carteira digital oficial com foto.</p>
-                </div>
-                <div className="bg-red-50 border border-red-100 rounded-lg p-3">
-                  <p className="font-bold text-on-surface mb-1">O documento deve estar:</p>
-                  <p className="text-on-surface-variant">Dentro da validade, em bom estado e com foto que permita identificação.</p>
-                </div>
-                <div>
-                  <p className="font-bold text-on-surface mb-1">Alguns hemocentros também podem pedir:</p>
-                  <p className="text-on-surface-variant">CPF, Cartão do SUS e comprovante de agendamento.</p>
-                </div>
-              </div>
-              <div className="p-4 border-t border-slate-100 flex justify-end">
-                <button
-                  onClick={() => { setShowConfirm(false); navigate({ to: "/" }); }}
-                  className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-700 transition-all"
-                >
-                  Entendi, ir para o início
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
     </AppLayout>
   );
