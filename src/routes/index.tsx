@@ -3,6 +3,13 @@ import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import { useAppointment } from "@/lib/schedule";
 import bloodBg from "@/assets/blood-molecules-bg.jpg";
+import partnerRaia from "@/assets/partners/raia.png";
+import partnerDrogal from "@/assets/partners/drogal.png";
+import partnerLatam from "@/assets/partners/latam.png";
+import partnerDecolar from "@/assets/partners/decolar.png";
+import partnerSantaCasa from "@/assets/partners/santacasa.png";
+import partnerGoverno from "@/assets/partners/governo.png";
+import partnerCimed from "@/assets/partners/cimed.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -207,26 +214,6 @@ function Index() {
                   loading="lazy"
                   src="https://www.openstreetmap.org/export/embed.html?bbox=-47.4200%2C-20.5600%2C-47.3700%2C-20.5200&layer=mapnik"
                 />
-                <div className="absolute inset-0 pointer-events-none">
-                  {[
-                    { top: "47%", left: "39%", label: "Hemocentro de Franca" },
-                    { top: "67%", left: "57%", label: "Hospital do Coração" },
-                    { top: "72%", left: "63%", label: "Santa Casa de Franca" },
-                  ].map((m) => (
-                    <div
-                      key={m.label}
-                      className="absolute -translate-x-1/2 -translate-y-full"
-                      style={{ top: m.top, left: m.left }}
-                      title={m.label}
-                    >
-                      <div className="relative flex flex-col items-center">
-                        <span className="absolute inset-0 w-5 h-5 rounded-full bg-primary/40 animate-ping" />
-                        <span className="w-5 h-5 rounded-full bg-primary border-2 border-white shadow-md" />
-                        <span className="w-1.5 h-2 bg-primary -mt-0.5" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white/40 to-transparent" />
               </div>
               <div className="p-5 space-y-4">
@@ -248,6 +235,41 @@ function Index() {
             </div>
           </div>
         </div>
+
+        <section className="mb-12 bg-slate-100 border border-slate-200 rounded-3xl p-8 shadow-sm">
+          <div className="text-center mb-6">
+            <span className="font-label-caps text-primary uppercase tracking-widest text-xs">Apoio Institucional</span>
+            <h2 className="font-headline-md text-2xl md:text-3xl text-on-surface mt-1">
+              Empresas Parceiras do SangueAmigo
+            </h2>
+            <p className="text-body-sm text-slate-500 mt-2 max-w-2xl mx-auto">
+              Empresas que acreditam na causa e ajudam a salvar vidas em Franca e região.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 items-center">
+            {[
+              { src: partnerRaia, name: "Droga Raia" },
+              { src: partnerDrogal, name: "Drogal" },
+              { src: partnerCimed, name: "Cimed" },
+              { src: partnerSantaCasa, name: "Santa Casa" },
+              { src: partnerLatam, name: "LATAM" },
+              { src: partnerDecolar, name: "Decolar" },
+              { src: partnerGoverno, name: "Governo Federal" },
+            ].map((p) => (
+              <div
+                key={p.name}
+                className="bg-white/60 rounded-xl h-20 flex items-center justify-center p-3 hover:bg-white transition-colors"
+              >
+                <img
+                  src={p.src}
+                  alt={p.name}
+                  loading="lazy"
+                  className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Link to="/agenda" className="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-all z-40">
