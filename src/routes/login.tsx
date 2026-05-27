@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import logo from "@/assets/logo-sangueamigo.png";
-import heroImage from "@/assets/login-hero.png";
+import heroImage from "@/assets/login-hero-pro.jpg";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -19,6 +19,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,112 +32,138 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-white" style={{ fontFamily: "Manrope, sans-serif" }}>
-      {/* Left: Form */}
-      <div className="w-full lg:w-1/2 flex flex-col p-8 md:p-16 lg:p-20 xl:p-24">
-        <div className="mb-16 shrink-0">
+    <div className="min-h-screen w-full bg-slate-100 flex items-center justify-center p-3 sm:p-6" style={{ fontFamily: "Manrope, sans-serif" }}>
+      <div className="relative w-full max-w-[1200px] aspect-auto lg:aspect-[16/9] min-h-[640px] bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+        {/* Background hero image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+          aria-hidden="true"
+        />
+        {/* Soft gradient over image to lighten the left side */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-white/60" aria-hidden="true" />
+
+        {/* Red wave bottom-right */}
+        <svg
+          className="absolute bottom-0 right-0 w-full h-[42%] pointer-events-none"
+          viewBox="0 0 1200 400"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#d10915" />
+              <stop offset="100%" stopColor="#8a0008" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,260 C220,140 460,360 720,260 C900,190 1050,240 1200,180 L1200,400 L0,400 Z"
+            fill="url(#waveGrad)"
+          />
+        </svg>
+
+        {/* Top centered logo */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20">
           <Link to="/" aria-label="SangueAmigo - Início" className="inline-flex">
-            <img src={logo} alt="SangueAmigo" className="h-16 w-auto" />
+            <img src={logo} alt="SangueAmigo" className="h-16 md:h-20 w-auto drop-shadow-sm" />
           </Link>
         </div>
 
-        <div className="max-w-md w-full mx-auto my-auto">
-          <div className="mb-10">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        {/* Decorative dots bottom-left */}
+        <div className="absolute bottom-6 left-6 z-10 grid grid-cols-8 gap-1.5 opacity-40" aria-hidden="true">
+          {Array.from({ length: 40 }).map((_, i) => (
+            <span key={i} className="w-1 h-1 rounded-full bg-[#bc000a]" />
+          ))}
+        </div>
+
+        {/* Tagline bottom-right over wave */}
+        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-4 text-white">
+          <svg className="w-14 h-14 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <path d="M32 54s-18-11-18-26a10 10 0 0118-6 10 10 0 0118 6c0 15-18 26-18 26z" />
+          </svg>
+          <p className="text-sm md:text-base leading-tight font-light">
+            Cada gota<br />de solidariedade<br />
+            <span className="font-bold">faz a vida continuar.</span>
+          </p>
+        </div>
+
+        {/* Login card */}
+        <div className="relative z-20 flex items-center min-h-[640px] lg:min-h-0 lg:h-full px-6 md:px-14 lg:px-20 pt-32 pb-40 lg:py-0">
+          <div className="w-full max-w-md bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-100 p-8 md:p-10">
+            <h1
+              className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-8 tracking-tight"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
               FAÇA SEU LOGIN
             </h1>
-            <p className="text-gray-500 text-lg">
-              Bem-vindo de volta! Acesse sua conta para gerenciar suas doações.
-            </p>
-          </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-gray-400 uppercase tracking-[2px] ml-1" htmlFor="email">E-mail</label>
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400 group-focus-within:text-[#bc000a] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <input id="email" type="email" placeholder="seu@email.com"
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              <div className="space-y-1.5">
+                <label htmlFor="email" className="block text-sm font-bold text-slate-800">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#bc000a]/10 focus:border-[#bc000a] focus:bg-white transition-all" />
+                  className="block w-full h-11 px-4 bg-white border border-slate-300 rounded-full text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#bc000a]/20 focus:border-[#bc000a] transition-all"
+                />
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold text-gray-400 uppercase tracking-[2px] ml-1" htmlFor="password">Senha</label>
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400 group-focus-within:text-[#bc000a] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
+              <div className="space-y-1.5">
+                <label htmlFor="password" className="block text-sm font-bold text-slate-800">
+                  Senha
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full h-11 pl-4 pr-12 bg-white border border-slate-300 rounded-full text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#bc000a]/20 focus:border-[#bc000a] transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  </button>
                 </div>
-                <input id="password" type="password" placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-12 pr-12 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#bc000a]/10 focus:border-[#bc000a] focus:bg-white transition-all" />
-                <button type="button" className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </button>
               </div>
-              <div className="flex justify-end pt-1">
-                <a href="#" className="text-sm font-semibold text-[#bc000a] hover:text-[#7a0007] transition-colors">Esqueceu a senha?</a>
+
+              {error && (
+                <div className="rounded-xl bg-red-50 border border-red-100 px-3 py-2 text-xs text-[#bc000a] font-medium">
+                  {error}
+                </div>
+              )}
+
+              <div className="text-center text-xs text-slate-500 pt-1">
+                Faça seu cadastro{" "}
+                <Link to="/cadastro" className="font-bold text-slate-800 hover:text-[#bc000a]">
+                  Cadastrar
+                </Link>
               </div>
-            </div>
 
-            {error && (
-              <div className="rounded-2xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-[#bc000a] font-medium">
-                {error}
+              <button
+                type="submit"
+                className="w-full h-12 rounded-full bg-gradient-to-b from-[#e21420] to-[#bc000a] text-white font-extrabold tracking-wide text-base shadow-lg shadow-[#bc000a]/30 hover:from-[#bc000a] hover:to-[#7a0007] active:scale-[0.98] transition-all"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                LOGIN
+              </button>
+
+              <div className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2 text-[11px] text-slate-500 text-center">
+                <span className="font-bold text-slate-700">Teste:</span> jessica.silva@email.com / jessica123
               </div>
-            )}
-
-            <div className="rounded-2xl bg-gray-50 border border-gray-100 px-4 py-3 text-xs text-gray-500">
-              <span className="font-bold text-gray-700">Conta de teste:</span> jessica.silva@email.com / jessica123
-            </div>
-
-            <button type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-[#bc000a] text-white font-bold py-4 px-8 rounded-2xl shadow-xl shadow-[#bc000a]/20 hover:bg-[#7a0007] hover:shadow-2xl hover:shadow-[#bc000a]/30 active:scale-[0.98] transition-all">
-              Login
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </form>
-
-          <div className="mt-10 text-center">
-            <p className="text-gray-500">
-              Não tem uma conta?{" "}
-              <Link to="/cadastro" className="text-[#bc000a] font-bold hover:underline">Cadastre-se agora</Link>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right: Hero */}
-      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-[#fef2f2] via-white to-[#e0f2fe] relative overflow-hidden items-center justify-center p-12">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#bc000a]/5 rounded-full blur-3xl -mr-48 -mt-48" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl -ml-48 -mb-48" />
-
-        <div className="relative z-10 flex flex-col items-center max-w-lg">
-          <img
-            src={heroImage}
-            alt="Doação de sangue com cuidado e atenção"
-            className="w-full max-w-md drop-shadow-2xl mb-10"
-          />
-
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl xl:text-5xl font-black text-[#bc000a] leading-[1.1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              Doe sangue,<br />salve vidas.
-            </h2>
-            <p className="text-[#7a0007]/70 text-lg font-medium leading-relaxed max-w-sm mx-auto">
-              Seu gesto simples pode ser a esperança de alguém hoje.
-            </p>
+            </form>
           </div>
         </div>
       </div>
