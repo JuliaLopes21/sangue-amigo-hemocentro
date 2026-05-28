@@ -76,10 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Plataforma para conectar doadores a hemocentros, agendar doações e acompanhar campanhas." },
       { name: "author", content: "SangueAmigo" },
       { property: "og:title", content: "SangueAmigo — Doe sangue, salve vidas" },
-      { property: "og:description", content: "Conectamos heróis como você a quem mais precisa." },
+      { property: "og:description", content: "Plataforma para conectar doadores a hemocentros, agendar doações e acompanhar campanhas." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "SangueAmigo — Doe sangue, salve vidas" },
+      { name: "twitter:description", content: "Plataforma para conectar doadores a hemocentros, agendar doações e acompanhar campanhas." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f515b356-1364-4149-8202-351b6f5af6f7/id-preview-ff2165fd--de550eb7-bbde-4d5a-91fc-c8da708cd76d.lovable.app-1779979620078.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f515b356-1364-4149-8202-351b6f5af6f7/id-preview-ff2165fd--de550eb7-bbde-4d5a-91fc-c8da708cd76d.lovable.app-1779979620078.png" },
     ],
     links: [
       {
