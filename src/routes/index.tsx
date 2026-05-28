@@ -3,13 +3,6 @@ import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import { useAppointment } from "@/lib/schedule";
 import bloodBg from "@/assets/blood-molecules-bg.jpg";
-import partnerRaia from "@/assets/partners/raia.png";
-import partnerDrogal from "@/assets/partners/drogal.png";
-import partnerLatam from "@/assets/partners/latam.png";
-import partnerDecolar from "@/assets/partners/decolar.png";
-import partnerSantaCasa from "@/assets/partners/santacasa.png";
-import partnerGoverno from "@/assets/partners/governo.png";
-import partnerCimed from "@/assets/partners/cimed.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,19 +19,22 @@ function Index() {
   const apptDate = appt ? new Date(appt.date) : null;
   const monthLabel = apptDate ? apptDate.toLocaleString("pt-BR", { month: "short" }).replace(".", "").toUpperCase() : "";
   const dayLabel = apptDate ? String(apptDate.getDate()).padStart(2, "0") : "";
-  const nextAvailableDate = apptDate ? new Date(apptDate.getTime()) : null;
-  if (nextAvailableDate && apptDate) nextAvailableDate.setMonth(nextAvailableDate.getMonth() + 3);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const totalDays = 90;
-  const daysRemaining = nextAvailableDate
-    ? Math.max(0, Math.ceil((nextAvailableDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
+  const apptDayStart = apptDate ? new Date(apptDate.getFullYear(), apptDate.getMonth(), apptDate.getDate()) : null;
+  const totalDays = apptDayStart
+    ? Math.max(1, Math.ceil((apptDayStart.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
     : 0;
-  const progressPct = nextAvailableDate
-    ? Math.min(100, Math.max(0, ((totalDays - daysRemaining) / totalDays) * 100))
+  const daysRemaining = totalDays;
+  // Progress fills up as the appointment day approaches. We assume the schedule
+  // was made on the day the user saved it, so the bar starts near empty and
+  // grows toward 100% on the appointment day.
+  const initialWindow = Math.max(totalDays, 1);
+  const progressPct = apptDayStart
+    ? Math.min(100, Math.max(0, ((initialWindow - daysRemaining) / initialWindow) * 100))
     : 0;
-  const nextAvailableLabel = nextAvailableDate
-    ? nextAvailableDate.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
+  const apptLabel = apptDate
+    ? apptDate.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
     : "";
   return (
     <AppLayout>
@@ -78,20 +74,20 @@ function Index() {
           <div className="md:col-span-4 flex flex-col gap-6">
             <div className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
               <h3 className="font-title-sm text-on-surface mb-4">Próxima Disponibilidade</h3>
-              {appt && nextAvailableDate ? (
+              {appt && apptDayStart ? (
                 <div className="py-2">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center shrink-0">
                       <Icon name="schedule" fill className="text-primary text-2xl" />
                     </div>
                     <div>
-                      <p className="text-body-sm font-bold text-on-surface">Você irá doar novamente em</p>
-                      <p className="text-xs text-slate-500">{nextAvailableLabel}</p>
+                      <p className="text-body-sm font-bold text-on-surface">Faltam para sua doação</p>
+                      <p className="text-xs text-slate-500">{apptLabel}</p>
                     </div>
                   </div>
                   <div className="flex items-end justify-between mb-2">
                     <span className="font-headline-md text-3xl text-primary leading-none">{daysRemaining}</span>
-                    <span className="text-xs text-slate-500">dias restantes</span>
+                    <span className="text-xs text-slate-500">{daysRemaining === 1 ? "dia restante" : "dias restantes"}</span>
                   </div>
                   <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                     <div
@@ -99,7 +95,7 @@ function Index() {
                       style={{ width: `${progressPct}%` }}
                     />
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-2">Intervalo mínimo de 3 meses entre doações.</p>
+                  <p className="text-[11px] text-slate-400 mt-2">Contagem regressiva até a data agendada.</p>
                 </div>
               ) : (
                 <div className="py-6 text-center">
@@ -236,40 +232,6 @@ function Index() {
           </div>
         </div>
 
-        <section className="mb-12 bg-slate-100 border border-slate-200 rounded-3xl p-8 shadow-sm">
-          <div className="text-center mb-6">
-            <span className="font-label-caps text-primary uppercase tracking-widest text-xs">Apoio Institucional</span>
-            <h2 className="font-headline-md text-2xl md:text-3xl text-on-surface mt-1">
-              Empresas Parceiras do SangueAmigo
-            </h2>
-            <p className="text-body-sm text-slate-500 mt-2 max-w-2xl mx-auto">
-              Empresas que acreditam na causa e ajudam a salvar vidas em Franca e região.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 items-center">
-            {[
-              { src: partnerRaia, name: "Droga Raia" },
-              { src: partnerDrogal, name: "Drogal" },
-              { src: partnerCimed, name: "Cimed" },
-              { src: partnerSantaCasa, name: "Santa Casa" },
-              { src: partnerLatam, name: "LATAM" },
-              { src: partnerDecolar, name: "Decolar" },
-              { src: partnerGoverno, name: "Governo Federal" },
-            ].map((p) => (
-              <div
-                key={p.name}
-                className="bg-white/60 rounded-xl h-20 flex items-center justify-center p-3 hover:bg-white transition-colors"
-              >
-                <img
-                  src={p.src}
-                  alt={p.name}
-                  loading="lazy"
-                  className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
 
       <Link to="/agenda" className="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-all z-40">

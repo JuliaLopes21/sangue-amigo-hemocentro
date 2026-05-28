@@ -264,6 +264,49 @@ function AgendaPage() {
                 </div>
               </div>
             </section>
+
+            <section>
+              <div className="bg-red-50/60 border border-red-100 rounded-xl p-lg">
+                <div className="flex items-center gap-sm mb-md">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Icon name="checklist" className="text-primary" />
+                  </div>
+                  <h3 className="font-headline-md text-headline-md">O que você deve levar</h3>
+                </div>
+
+                <div className="bg-white rounded-lg p-md border border-red-100 mb-md">
+                  <p className="font-bold text-on-surface mb-2 flex items-center gap-2">
+                    <Icon name="badge" className="text-primary text-base" />
+                    Documento oficial com foto
+                  </p>
+                  <ul className="grid grid-cols-2 gap-y-1 gap-x-4 text-body-sm text-on-surface-variant pl-1">
+                    {["RG", "CNH", "Carteira de trabalho", "Passaporte"].map((d) => (
+                      <li key={d} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <p className="font-bold text-on-surface mb-sm">Também é importante:</p>
+                <ul className="space-y-2">
+                  {[
+                    "Ter entre 16 e 69 anos (menores de 18 precisam de autorização)",
+                    "Pesar mais de 50 kg",
+                    "Estar bem alimentado",
+                    "Dormir pelo menos 6 horas",
+                    "Evitar bebida alcoólica nas últimas 12 horas",
+                    "Não ir em jejum",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-body-sm">
+                      <Icon name="check_circle" fill className="text-primary text-base mt-0.5 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
           </div>
 
           <div className="p-lg bg-surface-container border-t border-outline-variant/30 flex justify-end">

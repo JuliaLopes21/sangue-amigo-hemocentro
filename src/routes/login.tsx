@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import logo from "@/assets/logo-sangueamigo.png";
-import heroImage from "@/assets/login-hero-pro.jpg";
+import loginBg from "@/assets/login-bg.png";
 import { useState } from "react";
 
 export const Route = createFileRoute("/login")({
@@ -32,16 +31,19 @@ function LoginPage() {
 
   return (
     <div
-      className="min-h-screen w-full bg-slate-50 flex flex-col lg:flex-row"
+      className="min-h-screen w-full relative flex items-center justify-center lg:justify-end px-4 sm:px-8 lg:px-16 py-10"
       style={{ fontFamily: "Manrope, sans-serif" }}
     >
-      {/* LEFT — Form */}
-      <div className="w-full lg:w-[38%] xl:w-[35%] bg-white flex flex-col px-6 sm:px-10 md:px-14 py-10 lg:py-12 min-h-screen">
-        <Link to="/" aria-label="SangueAmigo - Início" className="inline-flex shrink-0">
-          <img src={logo} alt="SangueAmigo" className="h-12 w-auto" />
-        </Link>
+      <img
+        src={loginBg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-white/30 lg:bg-transparent" aria-hidden="true" />
 
-        <div className="flex-1 flex flex-col justify-center w-full max-w-[440px] mx-auto py-10">
+      {/* Form card */}
+      <div className="relative z-10 w-full max-w-[460px] bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl px-8 sm:px-10 py-10">
           <h1
             className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2 tracking-tight"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
@@ -120,10 +122,6 @@ function LoginPage() {
             >
               Entrar
             </button>
-
-            <div className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2 text-[11px] text-slate-500 text-center">
-              <span className="font-bold text-slate-700">Conta teste:</span> jessica.silva@email.com / jessica123
-            </div>
           </form>
 
           <p className="mt-8 text-center text-sm text-slate-500">
@@ -132,43 +130,6 @@ function LoginPage() {
               Cadastre-se
             </Link>
           </p>
-        </div>
-      </div>
-
-      {/* RIGHT — Banner */}
-      <div className="hidden lg:block lg:w-[62%] xl:w-[65%] relative overflow-hidden">
-        <img
-          src={heroImage}
-          alt="Profissional de saúde segurando coração vermelho com gota de sangue"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#C40018]/15 via-transparent to-slate-900/30" aria-hidden="true" />
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 320" preserveAspectRatio="none" className="block w-full h-[260px]" aria-hidden="true">
-            <defs>
-              <linearGradient id="loginWave" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#e21420" />
-                <stop offset="100%" stopColor="#8a0010" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,160 C220,40 480,260 720,160 C900,90 1050,150 1200,90 L1200,320 L0,320 Z"
-              fill="url(#loginWave)"
-            />
-          </svg>
-          <div className="absolute inset-x-0 bottom-0 px-12 pb-12 flex items-end justify-between gap-8 text-white">
-            <p
-              className="text-2xl xl:text-3xl font-extrabold leading-tight max-w-xl drop-shadow"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              "Cada gota de solidariedade<br />faz a vida continuar."
-            </p>
-            <svg className="w-16 h-16 opacity-90 shrink-0" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-              <path d="M32 54s-18-11-18-26a10 10 0 0118-6 10 10 0 0118 6c0 15-18 26-18 26z" />
-            </svg>
-          </div>
-        </div>
       </div>
     </div>
   );
