@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Icon } from "@/components/Icon";
 import { Link } from "@tanstack/react-router";
@@ -26,6 +27,17 @@ const francaUnits = [
   },
 ];
 
+const postosSaude = [
+  { name: "UBS Jardim Aeroporto", bairro: "Jardim Aeroporto", address: "Rua das Hortênsias, 250 — Franca, SP" },
+  { name: "UBS Vila Industrial", bairro: "Vila Industrial", address: "Av. Wilson Sábio de Mello, 1100 — Franca, SP" },
+  { name: "UBS City Petrópolis", bairro: "City Petrópolis", address: "Rua Petrópolis, 980 — Franca, SP" },
+  { name: "UBS São Joaquim", bairro: "São Joaquim", address: "Rua São Joaquim, 432 — Franca, SP" },
+  { name: "UBS Jardim Consolação", bairro: "Jardim Consolação", address: "Rua dos Estudantes, 75 — Franca, SP" },
+  { name: "UBS Parque Vicente Leporace", bairro: "Parque Vicente Leporace", address: "Av. Champagnat, 1450 — Franca, SP" },
+  { name: "UBS Jardim Paulistano", bairro: "Jardim Paulistano", address: "Rua Paulistano, 320 — Franca, SP" },
+  { name: "UBS Cidade Nova", bairro: "Cidade Nova", address: "Av. Cidade Nova, 2010 — Franca, SP" },
+];
+
 // Dados aproximados do Núcleo de Hemoterapia de Franca / Santa Casa de Franca
 // (estoque historicamente baixo desde abril/2025, processamento centralizado em Ribeirão Preto desde 2026).
 const stock = [
@@ -40,6 +52,15 @@ const stock = [
 ];
 
 function HemocentrosPage() {
+  const [query, setQuery] = useState("");
+  const filteredPostos = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return postosSaude;
+    return postosSaude.filter(
+      (p) => p.bairro.toLowerCase().includes(q) || p.name.toLowerCase().includes(q),
+    );
+  }, [query]);
+
   return (
     <AppLayout>
       <section className="bg-surface-container-low py-12 px-8">
@@ -77,6 +98,65 @@ function HemocentrosPage() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-red-50 to-white border border-primary/20 rounded-2xl shadow-sm p-md mb-8">
+            <div className="flex items-start gap-3 mb-md">
+              <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0">
+                <Icon name="campaign" fill />
+              </div>
+              <div>
+                <span className="inline-block text-[10px] font-label-caps uppercase tracking-widest text-primary bg-white border border-primary/20 rounded-full px-2 py-0.5 mb-1">Novidade</span>
+                <h2 className="font-title-sm text-on-surface">
+                  Agora você pode doar sangue bem pertinho da sua casa nos postos de saúde!
+                </h2>
+                <p className="text-body-sm text-tertiary mt-1">
+                  Busque pelo seu bairro em Franca e agende em uma UBS próxima a você.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative mb-md">
+              <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Buscar por bairro (ex: Jardim Aeroporto, Cidade Nova...)"
+                className="w-full h-12 pl-10 pr-4 bg-white border border-outline-variant/60 rounded-xl text-on-surface placeholder-tertiary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+            </div>
+
+            {filteredPostos.length === 0 ? (
+              <p className="text-body-sm text-tertiary text-center py-6">
+                Nenhum posto encontrado para "{query}".
+              </p>
+            ) : (
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredPostos.map((p) => (
+                  <li
+                    key={p.name}
+                    className="bg-white p-4 border border-outline-variant/40 rounded-xl flex flex-col"
+                  >
+                    <div className="flex items-start gap-2 mb-2">
+                      <Icon name="local_hospital" className="text-primary" />
+                      <div>
+                        <p className="font-bold text-on-surface text-sm">{p.name}</p>
+                        <p className="text-xs text-tertiary">{p.bairro}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-tertiary flex-1">{p.address}</p>
+                    <Link
+                      to="/agenda"
+                      search={{ unit: p.name }}
+                      className="mt-3 inline-flex items-center justify-center gap-1 bg-primary text-white text-body-sm font-bold rounded-lg px-3 py-2 hover:brightness-90 active:scale-95 transition-all"
+                    >
+                      Agendar <Icon name="arrow_forward" className="text-sm" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>

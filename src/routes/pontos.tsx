@@ -37,6 +37,7 @@ function generateFriendCode() {
 function PontosPage() {
   const friendCode = useMemo(() => generateFriendCode(), []);
   const [copied, setCopied] = useState(false);
+  const userPoints = 500;
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(friendCode);
@@ -85,7 +86,17 @@ function PontosPage() {
                 <div className="p-md flex flex-col flex-1">
                   <h3 className="font-title-sm mb-xs">{r.title}</h3>
                   <p className="text-body-sm text-on-surface-variant mb-md flex-1">{r.desc}</p>
-                  <button className="w-full py-3 bg-primary text-white rounded-xl font-title-sm hover:brightness-90 transition-all active:scale-95 mt-auto">Resgatar Agora</button>
+                  {userPoints >= r.pts ? (
+                    <button className="w-full py-3 bg-primary text-white rounded-xl font-title-sm hover:brightness-90 transition-all active:scale-95 mt-auto">Resgatar Agora</button>
+                  ) : (
+                    <button
+                      disabled
+                      className="w-full py-3 bg-slate-200 text-slate-500 rounded-xl font-title-sm mt-auto cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      <Icon name="lock" className="text-sm" />
+                      Bloqueado — faltam {r.pts - userPoints} pts
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -116,7 +127,32 @@ function PontosPage() {
           </div>
         </section>
 
-        <section className="mb-lg bg-slate-100 border border-slate-200 rounded-xl p-lg shadow-sm">
+        <section className="mb-lg bg-white p-lg rounded-xl border border-outline-variant/30">
+          <h2 className="font-headline-md text-headline-md mb-lg">Histórico de Resgates</h2>
+          <div className="space-y-6 relative before:absolute before:left-[21px] before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant/30">
+            {[
+              ["Doação Confirmada - Hospital do Coração — Franca", "28 Abr 2026", "+250 pontos acumulados"],
+              ["Doação Confirmada - Hemocentro de Franca", "22 Jan 2026", "+250 pontos acumulados"],
+            ].map(([title, date, pts]) => (
+              <div key={title} className="relative flex gap-md items-start">
+                <div className="relative z-10 w-11 h-11 rounded-full bg-green-100 flex items-center justify-center border-4 border-white shadow-sm shrink-0">
+                  <Icon name="check_circle" className="text-green-600 text-xl" />
+                </div>
+                <div className="flex-1 pb-6 border-b border-outline-variant/10">
+                  <div className="flex flex-col md:flex-row md:justify-between gap-1">
+                    <h4 className="font-title-sm">{title}</h4>
+                    <span className="text-body-sm text-on-surface-variant">{date}</span>
+                  </div>
+                  <p className="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+                    <Icon name="stars" className="text-primary text-sm" /> {pts}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-slate-100 border border-slate-200 rounded-xl p-lg shadow-sm">
           <div className="text-center mb-6">
             <span className="font-label-caps text-primary uppercase tracking-widest text-xs">Apoio Institucional</span>
             <h2 className="font-headline-md text-2xl md:text-3xl text-on-surface mt-1">
@@ -146,31 +182,6 @@ function PontosPage() {
                   loading="lazy"
                   className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity"
                 />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-white p-lg rounded-xl border border-outline-variant/30">
-          <h2 className="font-headline-md text-headline-md mb-lg">Histórico de Resgates</h2>
-          <div className="space-y-6 relative before:absolute before:left-[21px] before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant/30">
-            {[
-              ["Doação Confirmada - Hospital do Coração — Franca", "28 Abr 2026", "+250 pontos acumulados"],
-              ["Doação Confirmada - Hemocentro de Franca", "22 Jan 2026", "+250 pontos acumulados"],
-            ].map(([title, date, pts]) => (
-              <div key={title} className="relative flex gap-md items-start">
-                <div className="relative z-10 w-11 h-11 rounded-full bg-green-100 flex items-center justify-center border-4 border-white shadow-sm shrink-0">
-                  <Icon name="check_circle" className="text-green-600 text-xl" />
-                </div>
-                <div className="flex-1 pb-6 border-b border-outline-variant/10">
-                  <div className="flex flex-col md:flex-row md:justify-between gap-1">
-                    <h4 className="font-title-sm">{title}</h4>
-                    <span className="text-body-sm text-on-surface-variant">{date}</span>
-                  </div>
-                  <p className="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
-                    <Icon name="stars" className="text-primary text-sm" /> {pts}
-                  </p>
-                </div>
               </div>
             ))}
           </div>

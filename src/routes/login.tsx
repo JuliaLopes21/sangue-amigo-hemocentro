@@ -31,7 +31,7 @@ function LoginPage() {
 
   return (
     <div
-      className="min-h-screen w-full relative flex items-center justify-center lg:justify-end px-4 sm:px-8 lg:px-16 py-10"
+      className="min-h-screen w-full relative flex items-center justify-center lg:justify-start px-4 sm:px-8 lg:px-16 py-10"
       style={{ fontFamily: "Manrope, sans-serif" }}
     >
       <img
