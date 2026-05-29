@@ -31,7 +31,7 @@ const dayDefs = [
 
 const times = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30"];
 
-const units: Record<string, { label: string; address: string }> = {
+const baseUnits: Record<string, { label: string; address: string }> = {
   "Hemocentro de Franca": {
     label: "Hemocentro de Franca",
     address: "Rua Cel. Flauzino Barbosa Sandoval, 100 - Franca, SP",
@@ -51,8 +51,14 @@ function AgendaPage() {
   const existing = useAppointment();
   const { unit: unitFromUrl } = Route.useSearch();
   const [city, setCity] = useState("Franca, SP");
-  const initialUnit = (unitFromUrl && (Object.keys(units) as Array<keyof typeof units>).find((k) => k === unitFromUrl)) || "Hemocentro de Franca";
-  const [unitKey, setUnitKey] = useState<keyof typeof units>(initialUnit as keyof typeof units);
+  const units = useMemo<Record<string, { label: string; address: string }>>(() => {
+    if (unitFromUrl && !baseUnits[unitFromUrl]) {
+      return { [unitFromUrl]: { label: unitFromUrl, address: `${unitFromUrl} — Franca, SP` }, ...baseUnits };
+    }
+    return baseUnits;
+  }, [unitFromUrl]);
+  const initialUnit = (unitFromUrl && units[unitFromUrl]) ? unitFromUrl : "Hemocentro de Franca";
+  const [unitKey, setUnitKey] = useState<string>(initialUnit);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [friendCode, setFriendCode] = useState("");
@@ -125,7 +131,7 @@ function AgendaPage() {
                 <div>
                   <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">UNIDADE</label>
                   <div className="relative">
-                    <select value={unitKey} onChange={(e) => setUnitKey(e.target.value as keyof typeof units)} className="w-full h-12 px-md bg-surface-container-lowest border border-outline rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+                    <select value={unitKey} onChange={(e) => setUnitKey(e.target.value)} className="w-full h-12 px-md bg-surface-container-lowest border border-outline rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-primary outline-none">
                       {Object.keys(units).map((k) => <option key={k} value={k}>{k}</option>)}
                     </select>
                     <Icon name="expand_more" className="absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-outline" />
