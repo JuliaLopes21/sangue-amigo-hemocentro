@@ -241,17 +241,6 @@ function AgendaPage() {
               </div>
             </section>
 
-            {summary && (
-              <section>
-                <div className="bg-red-50 border border-red-100 rounded-xl p-md flex items-center gap-3">
-                  <Icon name="stars" fill className="text-primary" />
-                  <p className="text-body-sm">
-                    Confirmando este horário você ganhará <strong className="text-primary">+500 pontos</strong> referentes à sua <strong>3ª doação</strong> em {summary}.
-                  </p>
-                </div>
-              </section>
-            )}
-
             <section>
               <div className="bg-surface-container-high border-l-4 border-primary p-md rounded-r-lg flex items-start gap-md">
                 <Icon name="error" className="text-primary text-3xl shrink-0" />
