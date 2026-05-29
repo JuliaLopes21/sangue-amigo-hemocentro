@@ -36,6 +36,36 @@ const postosSaude = [
   { name: "UBS Parque Vicente Leporace", bairro: "Parque Vicente Leporace", address: "Av. Champagnat, 1450 — Franca, SP" },
   { name: "UBS Jardim Paulistano", bairro: "Jardim Paulistano", address: "Rua Paulistano, 320 — Franca, SP" },
   { name: "UBS Cidade Nova", bairro: "Cidade Nova", address: "Av. Cidade Nova, 2010 — Franca, SP" },
+  { name: "UBS Jardim Petraglia", bairro: "Jardim Petraglia", address: "Rua Petraglia, 410 — Franca, SP" },
+  { name: "UBS Jardim Aeroporto II", bairro: "Jardim Aeroporto II", address: "Rua Aeroporto II, 88 — Franca, SP" },
+  { name: "UBS Jardim Califórnia", bairro: "Jardim Califórnia", address: "Rua Califórnia, 530 — Franca, SP" },
+  { name: "UBS Jardim Tropical", bairro: "Jardim Tropical", address: "Rua Tropical, 145 — Franca, SP" },
+  { name: "UBS Jardim Aviação", bairro: "Jardim Aviação", address: "Av. dos Aviadores, 720 — Franca, SP" },
+  { name: "UBS Jardim Santa Rita", bairro: "Jardim Santa Rita", address: "Rua Santa Rita, 360 — Franca, SP" },
+  { name: "UBS Vila Rezende", bairro: "Vila Rezende", address: "Rua Rezende, 290 — Franca, SP" },
+  { name: "UBS Vila Aparecida", bairro: "Vila Aparecida", address: "Rua Aparecida, 175 — Franca, SP" },
+  { name: "UBS Jardim Brasilândia", bairro: "Jardim Brasilândia", address: "Rua Brasilândia, 615 — Franca, SP" },
+  { name: "UBS Jardim Lima", bairro: "Jardim Lima", address: "Rua Lima, 88 — Franca, SP" },
+  { name: "UBS Jardim Noêmia", bairro: "Jardim Noêmia", address: "Av. Noêmia, 1200 — Franca, SP" },
+  { name: "UBS Jardim Santana", bairro: "Jardim Santana", address: "Rua Santana, 455 — Franca, SP" },
+  { name: "UBS Jardim Bandeirantes", bairro: "Jardim Bandeirantes", address: "Rua Bandeirantes, 980 — Franca, SP" },
+  { name: "UBS Jardim Alvorada", bairro: "Jardim Alvorada", address: "Rua Alvorada, 67 — Franca, SP" },
+  { name: "UBS Jardim Independência", bairro: "Jardim Independência", address: "Rua Independência, 220 — Franca, SP" },
+  { name: "UBS Jardim Luiza", bairro: "Jardim Luiza", address: "Rua Luiza, 305 — Franca, SP" },
+  { name: "UBS Jardim Palma", bairro: "Jardim Palma", address: "Rua Palma, 142 — Franca, SP" },
+  { name: "UBS Parque do Horto", bairro: "Parque do Horto", address: "Av. do Horto, 1850 — Franca, SP" },
+  { name: "UBS Recanto Elimar", bairro: "Recanto Elimar", address: "Rua Elimar, 510 — Franca, SP" },
+  { name: "UBS Residencial Baldassari", bairro: "Residencial Baldassari", address: "Rua Baldassari, 270 — Franca, SP" },
+  { name: "UBS Núcleo Habitacional Antônio Petraglia", bairro: "Núcleo Petraglia", address: "Rua Petraglia, 999 — Franca, SP" },
+  { name: "UBS Jardim Florença", bairro: "Jardim Florença", address: "Rua Florença, 415 — Franca, SP" },
+  { name: "UBS Vila Santos Dumont", bairro: "Vila Santos Dumont", address: "Rua Santos Dumont, 120 — Franca, SP" },
+  { name: "UBS Vila Monteiro Lobato", bairro: "Vila Monteiro Lobato", address: "Rua Monteiro Lobato, 480 — Franca, SP" },
+  { name: "UBS Jardim Samello", bairro: "Jardim Samello", address: "Rua Samello, 312 — Franca, SP" },
+  { name: "UBS Vila Imperador", bairro: "Vila Imperador", address: "Rua Imperador, 75 — Franca, SP" },
+  { name: "UBS Jardim Veneza", bairro: "Jardim Veneza", address: "Rua Veneza, 640 — Franca, SP" },
+  { name: "UBS Vila Scarabucci", bairro: "Vila Scarabucci", address: "Rua Scarabucci, 220 — Franca, SP" },
+  { name: "UBS Jardim Antônio Petraglia", bairro: "Jardim Antônio Petraglia", address: "Rua A. Petraglia, 410 — Franca, SP" },
+  { name: "UBS Centro", bairro: "Centro", address: "Rua General Carneiro, 100 — Franca, SP" },
 ];
 
 // Dados aproximados do Núcleo de Hemoterapia de Franca / Santa Casa de Franca
@@ -53,6 +83,7 @@ const stock = [
 
 function HemocentrosPage() {
   const [query, setQuery] = useState("");
+  const [showPostos, setShowPostos] = useState(false);
   const filteredPostos = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return postosSaude;
@@ -116,47 +147,64 @@ function HemocentrosPage() {
               </div>
             </div>
 
-            <div className="relative mb-md">
-              <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" />
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Buscar por bairro (ex: Jardim Aeroporto, Cidade Nova...)"
-                className="w-full h-12 pl-10 pr-4 bg-white border border-outline-variant/60 rounded-xl text-on-surface placeholder-tertiary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-              />
-            </div>
+            <button
+              onClick={() => setShowPostos((v) => !v)}
+              className="inline-flex items-center gap-2 bg-primary text-white font-bold rounded-xl px-5 py-3 hover:brightness-90 active:scale-95 transition-all"
+            >
+              <Icon name={showPostos ? "expand_less" : "expand_more"} />
+              {showPostos ? "Ocultar postos" : "Ver postos"}
+            </button>
 
-            {filteredPostos.length === 0 ? (
-              <p className="text-body-sm text-tertiary text-center py-6">
-                Nenhum posto encontrado para "{query}".
-              </p>
-            ) : (
-              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {filteredPostos.map((p) => (
-                  <li
-                    key={p.name}
-                    className="bg-white p-4 border border-outline-variant/40 rounded-xl flex flex-col"
-                  >
-                    <div className="flex items-start gap-2 mb-2">
-                      <Icon name="local_hospital" className="text-primary" />
-                      <div>
-                        <p className="font-bold text-on-surface text-sm">{p.name}</p>
-                        <p className="text-xs text-tertiary">{p.bairro}</p>
-                      </div>
-                    </div>
-                    <p className="text-xs text-tertiary flex-1">{p.address}</p>
-                    <Link
-                      to="/agenda"
-                      search={{ unit: p.name }}
-                      className="mt-3 inline-flex items-center justify-center gap-1 bg-primary text-white text-body-sm font-bold rounded-lg px-3 py-2 hover:brightness-90 active:scale-95 transition-all"
-                    >
-                      Agendar <Icon name="arrow_forward" className="text-sm" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div
+              className={
+                "grid transition-all duration-500 ease-in-out " +
+                (showPostos ? "grid-rows-[1fr] opacity-100 mt-md" : "grid-rows-[0fr] opacity-0")
+              }
+            >
+              <div className="overflow-hidden">
+                <div className="relative mb-md">
+                  <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" />
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Buscar por bairro (ex: Jardim Aeroporto, Cidade Nova...)"
+                    className="w-full h-12 pl-10 pr-4 bg-white border border-outline-variant/60 rounded-xl text-on-surface placeholder-tertiary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  />
+                </div>
+
+                {filteredPostos.length === 0 ? (
+                  <p className="text-body-sm text-tertiary text-center py-6">
+                    Nenhum posto encontrado para "{query}".
+                  </p>
+                ) : (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[520px] overflow-y-auto pr-1">
+                    {filteredPostos.map((p) => (
+                      <li
+                        key={p.name}
+                        className="bg-white p-4 border border-outline-variant/40 rounded-xl flex flex-col animate-fade-in"
+                      >
+                        <div className="flex items-start gap-2 mb-2">
+                          <Icon name="local_hospital" className="text-primary" />
+                          <div>
+                            <p className="font-bold text-on-surface text-sm">{p.name}</p>
+                            <p className="text-xs text-tertiary">{p.bairro}</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-tertiary flex-1">{p.address}</p>
+                        <Link
+                          to="/agenda"
+                          search={{ unit: p.name }}
+                          className="mt-3 inline-flex items-center justify-center gap-1 bg-primary text-white text-body-sm font-bold rounded-lg px-3 py-2 hover:brightness-90 active:scale-95 transition-all"
+                        >
+                          Agendar <Icon name="arrow_forward" className="text-sm" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
