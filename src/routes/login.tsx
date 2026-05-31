@@ -42,12 +42,6 @@ function LoginPage() {
       />
       <div className="absolute inset-0 bg-white/30 lg:bg-transparent" aria-hidden="true" />
 
-      {/* White panel behind the card to cover background text on the left */}
-      <div
-        className="hidden lg:block absolute inset-y-0 left-0 w-[640px] bg-white z-10"
-        aria-hidden="true"
-      />
-
       {/* Form card */}
       <div className="relative z-20 w-full max-w-[520px] bg-white rounded-3xl shadow-2xl px-8 sm:px-12 py-10 ring-1 ring-slate-200">
           <h1
