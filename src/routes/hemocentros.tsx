@@ -111,11 +111,6 @@ function HemocentrosPage() {
             Núcleo de Hemoterapia de Franca, Santa Casa de Misericórdia e Hospital do Coração. Dados aproximados — estoques vêm baixos desde 2025.
           </p>
           <div className="bg-white rounded-2xl border border-outline-variant/40 shadow-sm p-md mb-8">
-            <div className="flex items-center gap-2 mb-md text-primary">
-              <Icon name="search" />
-              <h2 className="font-title-sm">Hemocentros disponíveis em Franca</h2>
-            </div>
-            <p className="text-body-sm text-tertiary mb-md">Selecione uma unidade para agendar sua doação agora mesmo.</p>
             <div className="relative mb-md">
               <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" />
               <input
