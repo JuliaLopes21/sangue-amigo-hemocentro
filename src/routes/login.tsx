@@ -43,7 +43,8 @@ function LoginPage() {
       <div className="absolute inset-0 bg-white/30 lg:bg-transparent" aria-hidden="true" />
 
       {/* Form card */}
-      <div className="relative z-10 w-full max-w-[460px] bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl px-8 sm:px-10 py-10">
+      <div className="relative z-20 w-full max-w-[520px] bg-white rounded-3xl shadow-2xl px-8 sm:px-12 py-10 ring-1 ring-slate-200">
+        <div className="absolute inset-0 -m-2 bg-white rounded-3xl -z-10" aria-hidden="true" />
           <h1
             className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2 tracking-tight"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}

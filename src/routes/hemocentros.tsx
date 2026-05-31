@@ -84,6 +84,14 @@ const stock = [
 function HemocentrosPage() {
   const [query, setQuery] = useState("");
   const [showPostos, setShowPostos] = useState(false);
+  const [unitQuery, setUnitQuery] = useState("");
+  const filteredUnits = useMemo(() => {
+    const q = unitQuery.trim().toLowerCase();
+    if (!q) return francaUnits;
+    return francaUnits.filter(
+      (u) => u.name.toLowerCase().includes(q) || u.address.toLowerCase().includes(q),
+    );
+  }, [unitQuery]);
   const filteredPostos = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return postosSaude;
@@ -108,8 +116,23 @@ function HemocentrosPage() {
               <h2 className="font-title-sm">Hemocentros disponíveis em Franca</h2>
             </div>
             <p className="text-body-sm text-tertiary mb-md">Selecione uma unidade para agendar sua doação agora mesmo.</p>
+            <div className="relative mb-md">
+              <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" />
+              <input
+                type="text"
+                value={unitQuery}
+                onChange={(e) => setUnitQuery(e.target.value)}
+                placeholder="Buscar hemocentro por nome ou endereço..."
+                className="w-full h-12 pl-10 pr-4 bg-surface-container-low border border-outline-variant/60 rounded-xl text-on-surface placeholder-tertiary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+            </div>
+            {filteredUnits.length === 0 ? (
+              <p className="text-body-sm text-tertiary text-center py-6">
+                Nenhum hemocentro encontrado para "{unitQuery}".
+              </p>
+            ) : (
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {francaUnits.map((u) => (
+              {filteredUnits.map((u) => (
                 <li key={u.name}>
                   <Link
                     to="/agenda"
@@ -129,6 +152,7 @@ function HemocentrosPage() {
                 </li>
               ))}
             </ul>
+            )}
           </div>
 
           <div className="bg-gradient-to-br from-red-50 to-white border border-primary/20 rounded-2xl shadow-sm p-md mb-8">
