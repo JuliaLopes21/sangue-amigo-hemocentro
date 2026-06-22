@@ -20,13 +20,13 @@ export const Route = createFileRoute("/agenda")({
 });
 
 const dayDefs = [
-  { dow: "SEG", date: new Date(2026, 6, 27), enabled: true },
-  { dow: "TER", date: new Date(2026, 6, 28), enabled: true },
-  { dow: "QUA", date: new Date(2026, 6, 29), enabled: true },
-  { dow: "QUI", date: new Date(2026, 6, 30), enabled: true },
-  { dow: "SEX", date: new Date(2026, 6, 31), enabled: true },
-  { dow: "SAB", date: new Date(2026, 7, 1), enabled: false },
-  { dow: "DOM", date: new Date(2026, 7, 2), enabled: false },
+  { dow: "SEG", date: new Date(2026, 5, 22), enabled: true },
+  { dow: "TER", date: new Date(2026, 5, 23), enabled: true },
+  { dow: "QUA", date: new Date(2026, 5, 24), enabled: true },
+  { dow: "QUI", date: new Date(2026, 5, 25), enabled: true },
+  { dow: "SEX", date: new Date(2026, 5, 26), enabled: true },
+  { dow: "SAB", date: new Date(2026, 5, 27), enabled: false },
+  { dow: "DOM", date: new Date(2026, 5, 28), enabled: false },
 ] as const;
 
 const times = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30"];
